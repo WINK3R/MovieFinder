@@ -4,6 +4,7 @@ import {BadgeFilm} from "./HomeScreen";
 import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faClock} from "@fortawesome/free-solid-svg-icons";
 import LinearGradient from 'react-native-linear-gradient';
+import {RootTabScreenProps} from "../types.js";
 
 export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'WatchLater'>) {
   return (
@@ -14,7 +15,7 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
                 <Text style={{color: "white", fontSize:30}}>Watch Later</Text>
           </View>
           <Image
-              source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400, resizeMode:"fit"}}
+              source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400, resizeMode:"stretch"}}
           />
           <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
               <TextInput style={{width:300, height:40, marginHorizontal:20}} ></TextInput>

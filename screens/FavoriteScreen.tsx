@@ -3,6 +3,7 @@ import * as React from "react";
 import {BadgeFilm} from "./HomeScreen";
 import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faHeart} from "@fortawesome/free-solid-svg-icons";
+import {RootTabScreenProps} from "../types.js";
 
 
 export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favorite'>) {
@@ -13,7 +14,7 @@ export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favor
                 <Text style={{color: "white", fontSize:30}}>Favorite</Text>
             </View>
             <Image
-                source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400}}
+                source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400, resizeMode: "stretch"}}
             />
             <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
                 <TextInput style={{width:300, height:40, marginHorizontal:20}} ></TextInput>
