@@ -2,13 +2,14 @@ import * as React from 'react';
 import {Button,TouchableOpacity,ScrollView,View, Text, StyleSheet, Image, ImageBackground, SafeAreaView} from 'react-native';
 import {RootStackScreenProps} from "../types.js";
 import Rive from 'rive-react-native';
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {RiveViewManager} from "rive-react-native/lib/typescript/Rive.js";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 export default function App({ navigation }: RootStackScreenProps<'Home'>) {
-    const riveRef = useRef();
     const insets = useSafeAreaInsets();
+
+
 
     const styles = StyleSheet.create({
         background: {

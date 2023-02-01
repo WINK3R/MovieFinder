@@ -1,12 +1,14 @@
 import {FlatList, StyleSheet, SafeAreaView, Text, View, Image, TextInput} from 'react-native';
 import * as React from "react";
-import {BadgeFilm} from "./HomeScreen";
 import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faHeart} from "@fortawesome/free-solid-svg-icons";
 import {RootTabScreenProps} from "../types.js";
+import {useState} from "react";
+import MovieList from "../components/MovieList";
 
 
 export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favorite'>) {
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{height: 50, justifyContent: "flex-start",flexDirection: 'row', paddingHorizontal:20,  marginBottom: 15,marginVertical:5, alignItems:"flex-end"}} >
@@ -19,21 +21,7 @@ export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favor
             <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
                 <TextInput style={{width:'100%', height:40, marginHorizontal:20}} ></TextInput>
             </View>
-            <FlatList
-                data={[
-                    {key: 'Devin'},
-                    {key: 'Dan'},
-                    {key: 'Dominic'},
-                    {key: 'Jackson'},
-                    {key: 'James'},
-                    {key: 'Joel'},
-                    {key: 'John'},
-                    {key: 'Jillian'},
-                    {key: 'Jimmy'},
-                    {key: 'Julie'},
-                ]}
-                renderItem={({item}) => <ListWidget name={item.key} ></ListWidget>}
-            />
+            <MovieList></MovieList>
         </SafeAreaView>
     );
 }
@@ -58,32 +46,4 @@ const styles = StyleSheet.create({
     },
 });
 
-type ListWidgetProps = {
-    name : String
-
-}
-
-export function ListWidget(props: ListWidgetProps) {
-    return (
-        <View style={{height: 100, borderRadius: 20, justifyContent: "flex-start", flexDirection: 'row', paddingHorizontal:20, marginVertical:5}} >
-            <Image
-                style={styles.filmCard}
-                source={{
-                    uri: 'https://fr.web.img4.acsta.net/pictures/21/11/16/10/01/4860598.jpg',
-                }}
-            />
-            <View style={{height: 100, borderRadius: 20, justifyContent: "flex-start", flexDirection: 'column', paddingLeft:10}} >
-                <Text style={{color: "white", fontWeight:"bold", fontSize:25}}>{props.name}</Text>
-                <Text style={{color: "grey", fontWeight:"bold", fontSize:17}}>{props.name}</Text>
-                <View style={{marginVertical:10}}>
-                    <BadgeFilm name={"Science-Ficton"}/>
-                </View>
-            </View>
-        </View>
-
-
-    );
-
-
-}
 
