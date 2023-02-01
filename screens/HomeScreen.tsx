@@ -104,22 +104,22 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
                     </View>
                 <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>Jean-Marc généreux</Text>
             </View>
-            <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: 130}}>
+            <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
             <TouchableOpacity>
                 <Image
-                    source={require('../assets/images/WatchLater.png')} style={{height: 70, width: 70, resizeMode:"fit"}}
+                    source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
                 />
 
             </TouchableOpacity>
             <TouchableOpacity>
                 <Image
-                    source={require('../assets/images/Generate.png')} style={{height: 90, width: 90, resizeMode:"fit"}}
+                    source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
                 />
 
             </TouchableOpacity>
             <TouchableOpacity>
                 <Image
-                    source={require('../assets/images/Favorite.png')} style={{height: 70, width: 70, resizeMode:"fit"}}
+                    source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
                 />
 
             </TouchableOpacity>
