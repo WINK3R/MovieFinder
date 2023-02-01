@@ -12,7 +12,7 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            paddingTop: insets.top + 22,
+            paddingTop: 22,
             backgroundColor: "#232323"
         },
         linearGradient: {

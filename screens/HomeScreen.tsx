@@ -4,52 +4,56 @@ import {RootStackScreenProps} from "../types.js";
 import Rive from 'rive-react-native';
 import {useRef} from "react";
 import {RiveViewManager} from "rive-react-native/lib/typescript/Rive.js";
-const styles = StyleSheet.create({
-    background: {
-        backgroundColor: 'black',
-        height: '100%',
-    },
-
-    container:{
-        flex: 1,
-    },
-    filmCard: {
-        width: '80%',
-        height: '60%',
-        justifyContent:'center',
-        marginLeft:'auto',
-        marginRight:'auto',
-        borderRadius: 15,
-
-
-    },
-    image: {
-        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 6,
-        },
-        shadowOpacity: 0.39,
-        shadowRadius: 8.30,
-        flex: 1,
-        paddingTop: 70,
-        alignSelf: 'center',
-        elevation: 13,
-    },
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover', // or 'stretch'
-    },
-    child: {
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-    },
-
-});
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 export default function App({ navigation }: RootStackScreenProps<'Home'>) {
     const riveRef = useRef();
+    const insets = useSafeAreaInsets();
+
+    const styles = StyleSheet.create({
+        background: {
+            backgroundColor: 'black',
+            height: '100%',
+            paddingTop: insets.top,
+        },
+
+        container:{
+            flex: 1,
+        },
+        filmCard: {
+            width: '80%',
+            height: '60%',
+            justifyContent:'center',
+            marginLeft:'auto',
+            marginRight:'auto',
+            borderRadius: 15,
+
+
+        },
+        image: {
+            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center',
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 6,
+            },
+            shadowOpacity: 0.39,
+            shadowRadius: 8.30,
+            flex: 1,
+            paddingTop: 70,
+            alignSelf: 'center',
+            elevation: 13,
+        },
+        backgroundImage: {
+            flex: 1,
+            resizeMode: 'cover', // or 'stretch'
+        },
+        child: {
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+        },
+
+    });
     return (
         <SafeAreaView style={styles.background}>
 
