@@ -13,7 +13,7 @@ export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favor
                 <Text style={{color: "white", fontSize:30}}>Favorite</Text>
             </View>
             <Image
-                source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400, resizeMode:"fit"}}
+                source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400}}
             />
             <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
                 <TextInput style={{width:300, height:40, marginHorizontal:20}} ></TextInput>

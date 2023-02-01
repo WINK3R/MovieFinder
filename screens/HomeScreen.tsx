@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        position: 'absolute',
+        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.39,
         shadowRadius: 8.30,
         flex: 1,
-        paddingTop: 230,
+        paddingTop: 70,
         alignSelf: 'center',
         elevation: 13,
     },
