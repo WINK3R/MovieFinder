@@ -17,7 +17,7 @@ export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favor
                 source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400, resizeMode: "stretch"}}
             />
             <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
-                <TextInput style={{width:300, height:40, marginHorizontal:20}} ></TextInput>
+                <TextInput style={{width:'100%', height:40, marginHorizontal:20}} ></TextInput>
             </View>
             <FlatList
                 data={[
