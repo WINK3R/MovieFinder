@@ -63,7 +63,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="WatchLater"
       screenOptions={{
-        tabBarActiveTintColor: "white",
+        tabBarActiveTintColor: "purple",
 
       }}>
       <BottomTab.Screen
