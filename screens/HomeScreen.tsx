@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     filmCard: {
-        width: 310,
-        height: 450,
+        width: '80%',
+        height: '60%',
         justifyContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
