@@ -5,8 +5,36 @@ import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faClock} from "@fortawesome/free-solid-svg-icons";
 import LinearGradient from 'react-native-linear-gradient';
 import {RootTabScreenProps} from "../types.js";
-
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'WatchLater'>) {
+    const insets = useSafeAreaInsets();
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            paddingTop: insets.top + 22,
+            backgroundColor: "#232323"
+        },
+        linearGradient: {
+            flex: 1,
+            paddingLeft: 15,
+            paddingRight: 15,
+            borderRadius: 5
+        },
+        item: {
+            padding: 10,
+            fontSize: 18,
+            height: 44,
+            color: "white"
+        },
+        filmCard: {
+            width: 70,
+            height: 100,
+            borderRadius: 8,
+
+
+        },
+    });
   return (
       <SafeAreaView style={styles.container}>
           <View style={{height: 50, justifyContent: "flex-start",flexDirection: 'row', paddingHorizontal:20,  marginBottom: 15,marginVertical:5, alignItems:"flex-end"}} >
@@ -37,33 +65,9 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
           />
       </SafeAreaView>
   );
+
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 22,
-        backgroundColor: "#232323"
-    },
-    linearGradient: {
-        flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 5
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-        color: "white"
-    },
-    filmCard: {
-        width: 70,
-        height: 100,
-        borderRadius: 8,
 
-
-    },
-});
 
 type ListWidgetProps = {
     name : String
@@ -71,6 +75,17 @@ type ListWidgetProps = {
 }
 
 export function ListWidget(props: ListWidgetProps) {
+    const insets = useSafeAreaInsets();
+
+    const styles = StyleSheet.create({
+        filmCard: {
+            width: 70,
+            height: 100,
+            borderRadius: 8,
+
+
+        },
+    });
 return (
             <View style={{height: 100, borderRadius: 20, justifyContent: "flex-start", flexDirection: 'row', paddingHorizontal:20, marginVertical:5}} >
                 <Image
