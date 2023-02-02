@@ -1,15 +1,29 @@
 import * as React from 'react';
-import {Button,TouchableOpacity,ScrollView,View, Text, StyleSheet, Image, ImageBackground, SafeAreaView} from 'react-native';
+import {
+    Button,
+    TouchableOpacity,
+    ScrollView,
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    ImageBackground,
+    SafeAreaView
+} from 'react-native';
 import {RootStackScreenProps} from "../types.js";
 import Rive from 'rive-react-native';
 import {useEffect, useRef, useState} from "react";
 import {RiveViewManager} from "rive-react-native/lib/typescript/Rive.js";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Movie} from "../interfaces";
+import apiTMBD from '../api/tmdb';
 
-export default function App({ navigation }: RootStackScreenProps<'Home'>) {
+export default function App({navigation}: RootStackScreenProps<'Home'>) {
     const insets = useSafeAreaInsets();
-
-
+    let [movies, setMovies] = useState<Movie[]>([]);
+    var api = new apiTMBD();
+    let moviess: string[] = api.getTrendingMovie();
+    api.getInfoMovie("505642");
 
     const styles = StyleSheet.create({
         background: {
@@ -18,15 +32,15 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
             paddingTop: insets.top,
         },
 
-        container:{
+        container: {
             flex: 1,
         },
         filmCard: {
             width: '80%',
             height: '60%',
-            justifyContent:'center',
-            marginLeft:'auto',
-            marginRight:'auto',
+            justifyContent: 'center',
+            marginLeft: 'auto',
+            marginRight: 'auto',
             borderRadius: 15,
 
 
@@ -79,7 +93,7 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
                     }}
                 />
             </View>
-            <View style={{height:35, marginTop: 10, marginBottom: 15}}>
+            <View style={{height: 35, marginTop: 10, marginBottom: 15}}>
                 <ScrollView
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}>
@@ -94,63 +108,99 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
                     <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
 
 
-
                 </ScrollView>
             </View>
-            <View style={{ flexDirection: 'column', alignSelf: 'flex-start', alignItems: 'flex-start', paddingHorizontal: 30, flex: 1 }}>
+            <View style={{
+                flexDirection: 'column',
+                alignSelf: 'flex-start',
+                alignItems: 'flex-start',
+                paddingHorizontal: 30,
+                flex: 1
+            }}>
 
-                <View style={{ flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'flex-start', width: "100%"}}>
+                <View style={{
+                    flexDirection: 'row',
+                    alignSelf: 'flex-start',
+                    justifyContent: 'flex-start',
+                    width: "100%"
+                }}>
                     <BadgeFilm name={"Science-fiction"}></BadgeFilm>
                     <BadgeFilm name={"Science-fiction"}></BadgeFilm>
                     <BadgeFilm name={"9:11"}></BadgeFilm>
                 </View>
-                    <View>
-                        <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>SPIDER-MAN No Way Home</Text>
-                    </View>
+                <View>
+                    <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>SPIDER-MAN
+                        No Way Home</Text>
+                </View>
                 <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>Jean-Marc généreux</Text>
             </View>
-            <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
-                />
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: "space-evenly",
+                paddingHorizontal: 30,
+                height: '15%',
+                width: '100%'
+            }}>
+                <TouchableOpacity>
+                    <Image
+                        source={require('../assets/images/WatchLater.png')}
+                        style={{resizeMode: "stretch", height: '65%', aspectRatio: 1,}}
+                    />
 
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
-                />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image
+                        source={require('../assets/images/Generate.png')}
+                        style={{resizeMode: "stretch", height: '85%', aspectRatio: 1,}}
+                    />
 
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
-                />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image
+                        source={require('../assets/images/Favorite.png')}
+                        style={{resizeMode: "stretch", height: '65%', aspectRatio: 1,}}
+                    />
 
-            </TouchableOpacity>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
 }
 
 type BadgeGenreProps = {
-    name : String
+    name: String
     isSelected: Boolean
 
 }
 
 export function BadgeGenre(props: BadgeGenreProps) {
-    if(props.isSelected==false){
+    if (props.isSelected == false) {
         return (
-            <View style={{paddingHorizontal: 20,  marginHorizontal: 5,height: 35, backgroundColor: '#2E2E2E', borderRadius: 20, justifyContent: "center"}} >
+            <View style={{
+                paddingHorizontal: 20,
+                marginHorizontal: 5,
+                height: 35,
+                backgroundColor: '#2E2E2E',
+                borderRadius: 20,
+                justifyContent: "center"
+            }}>
                 <Text style={{color: "white"}}>{props.name}</Text>
             </View>
 
         );
-    }
-    else{
+    } else {
         return (
-            <View style={{paddingHorizontal: 20,  marginHorizontal: 5,height: 35, backgroundColor: '#5C5C5C', borderRadius: 20, borderWidth: 1, borderColor: "white" ,justifyContent: "center"}} >
+            <View style={{
+                paddingHorizontal: 20,
+                marginHorizontal: 5,
+                height: 35,
+                backgroundColor: '#5C5C5C',
+                borderRadius: 20,
+                borderWidth: 1,
+                borderColor: "white",
+                justifyContent: "center"
+            }}>
                 <Text style={{color: "white"}}>{props.name}</Text>
             </View>
 
@@ -161,17 +211,26 @@ export function BadgeGenre(props: BadgeGenreProps) {
 }
 
 type BadgeFilmProps = {
-    name : String
+    name: String
 
 }
+
 export function BadgeFilm(props: BadgeFilmProps) {
 
-        return (
-            <View style={{paddingHorizontal: 15,  marginHorizontal: 5,height: 30, backgroundColor: '#8906B8', borderRadius: 15, justifyContent: "center", alignSelf: "flex-start"}} >
-                <Text style={{color: "white", fontSize: 12, fontWeight:"bold"}}>{props.name}</Text>
-            </View>
+    return (
+        <View style={{
+            paddingHorizontal: 15,
+            marginHorizontal: 5,
+            height: 30,
+            backgroundColor: '#8906B8',
+            borderRadius: 15,
+            justifyContent: "center",
+            alignSelf: "flex-start"
+        }}>
+            <Text style={{color: "white", fontSize: 12, fontWeight: "bold"}}>{props.name}</Text>
+        </View>
 
-        );
+    );
 
 
 }

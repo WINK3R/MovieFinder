@@ -59,7 +59,7 @@ export function ListWidget(props: ListWidgetProps) {
                     fontWeight: "bold",
                     fontSize: 25,
                     paddingRight: 50
-                }}>{props.director}</Text>
+                }}>{props.name}</Text>
                 <Text style={{color: "grey", fontWeight: "bold", fontSize: 17}}>{formatTime(props.runtime)}</Text>
                 <View style={{marginVertical: 10}}>
                     <BadgeFilm name={"Science-Ficton"}/>

@@ -1,25 +1,15 @@
 import {useEffect, useState} from "react";
 import {FlatList, View} from "react-native";
 import {ListWidget} from "./ListWidget";
-import tmdb from "../api/tmdb"
 import axios from "axios";
+import apiTMBD from "../api/tmdb";
+
 
 interface idMovie {
     id: string
 
 }
 
-
-interface Cast {
-    cast: string
-
-}
-
-interface People {
-    name: string
-    job: string
-
-}
 
 interface Movie {
     id: string
