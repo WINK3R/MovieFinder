@@ -167,7 +167,7 @@ type BadgeFilmProps = {
 export function BadgeFilm(props: BadgeFilmProps) {
 
         return (
-            <View style={{paddingHorizontal: 15,  marginHorizontal: 5,height: 30, backgroundColor: '#8906B8', borderRadius: 15, justifyContent: "center"}} >
+            <View style={{paddingHorizontal: 15,  marginHorizontal: 5,height: 30, backgroundColor: '#8906B8', borderRadius: 15, justifyContent: "center", alignSelf: "flex-start"}} >
                 <Text style={{color: "white", fontSize: 12, fontWeight:"bold"}}>{props.name}</Text>
             </View>
 
