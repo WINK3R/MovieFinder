@@ -16,14 +16,9 @@ import {useEffect, useRef, useState} from "react";
 import {RiveViewManager} from "rive-react-native/lib/typescript/Rive.js";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Movie} from "../interfaces";
-import apiTMBD from '../api/tmdb';
 
 export default function App({navigation}: RootStackScreenProps<'Home'>) {
     const insets = useSafeAreaInsets();
-    let [movies, setMovies] = useState<Movie[]>([]);
-    var api = new apiTMBD();
-    let moviess: string[] = api.getTrendingMovie();
-    api.getInfoMovie("505642");
 
     const styles = StyleSheet.create({
         background: {
