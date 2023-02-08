@@ -1,0 +1,1 @@
+export const FETCH_TRENDINGMOVIE : string = "FETCH_TRENDINGMOVIE";

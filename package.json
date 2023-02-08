@@ -23,6 +23,7 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "@reacticons/ionicons": "^6.0.4",
+    "@reduxjs/toolkit": "^1.9.2",
     "axios": "^1.3.0",
     "expo": "~47.0.12",
     "expo-asset": "~8.7.0",
@@ -43,6 +44,8 @@
     "react-native-screens": "~3.18.0",
     "react-native-svg": "^13.7.0",
     "react-native-web": "~0.18.9",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
     "rive-react-native": "^3.0.41"
   },
   "devDependencies": {

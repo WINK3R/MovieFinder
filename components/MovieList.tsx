@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {FlatList, View} from "react-native";
 import {ListWidget} from "./ListWidget";
 import axios from "axios";
-import apiTMBD from "../api/tmdb";
+import apiTMBD from "../services/tmdb";
 
 
 interface idMovie {

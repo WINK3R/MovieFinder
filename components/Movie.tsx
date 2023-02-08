@@ -1,4 +1,4 @@
-import apiTMBD from "../api/tmdb";
+
 
 class Movie {
     id: string
@@ -6,16 +6,12 @@ class Movie {
     poster_path: string
     runtime: number
     vote_average: number
-
-    director: string | undefined
-
-    constructor(id: string, original_title: string, poster_path: string, runtime: number, vote_average: number, director: string | undefined) {
+    constructor(id: string, original_title: string, poster_path: string, runtime: number, vote_average: number) {
         this.id = id;
         this.original_title = original_title;
         this.poster_path = poster_path;
         this.runtime = runtime;
         this.vote_average = vote_average;
-        this.director = director;
     }
 
 
