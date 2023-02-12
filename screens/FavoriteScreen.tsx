@@ -3,7 +3,7 @@ import * as React from "react";
 import {BadgeFilm} from "./HomeScreen";
 import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faHeart} from "@fortawesome/free-solid-svg-icons";
-import {RootTabScreenProps} from "../types.js";
+import {RootTabScreenProps} from "../types";
 
 
 export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favorite'>) {

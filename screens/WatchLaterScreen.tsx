@@ -4,10 +4,15 @@ import {BadgeFilm} from "./HomeScreen";
 import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import { faClock} from "@fortawesome/free-solid-svg-icons";
 import LinearGradient from 'react-native-linear-gradient';
-import {RootTabScreenProps} from "../types.js";
+import {RootTabScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useDispatch,useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {getTrendingID} from "../redux/actions/actionGetTrendingID";
+import Movie from "../model/Movie";
 export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'WatchLater'>) {
     const insets = useSafeAreaInsets();
+
 
     const styles = StyleSheet.create({
         container: {
@@ -35,6 +40,19 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
 
         },
     });
+
+    // @ts-ignore
+    const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const loadTrendingID = async () => {
+            // @ts-ignore
+            await dispatch(getTrendingID());
+        };
+        loadTrendingID();
+    }, [dispatch]);
   return (
       <SafeAreaView style={styles.container}>
           <View style={{height: 50, justifyContent: "flex-start",flexDirection: 'row', paddingHorizontal:20,  marginBottom: 15,marginVertical:5, alignItems:"flex-end"}} >
@@ -49,19 +67,9 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
               <TextInput style={{width:'100%', height:40, marginHorizontal:20}} ></TextInput>
           </View>
           <FlatList
-              data={[
-                  {key: 'Devin'},
-                  {key: 'Dan'},
-                  {key: 'Dominic'},
-                  {key: 'Jackson'},
-                  {key: 'James'},
-                  {key: 'Joel'},
-                  {key: 'John'},
-                  {key: 'Jillian'},
-                  {key: 'Jimmy'},
-                  {key: 'Julie'},
-              ]}
-              renderItem={({item}) => <ListWidget name={item.key} ></ListWidget>}
+              data={trendingMovies}
+              keyExtractor={item => item.original_title}
+              renderItem={({item}) => <ListWidget movie={item} ></ListWidget>}
           />
       </SafeAreaView>
   );
@@ -70,7 +78,7 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
 
 
 type ListWidgetProps = {
-    name : String
+    movie : Movie
 
 }
 
@@ -86,22 +94,48 @@ export function ListWidget(props: ListWidgetProps) {
 
         },
     });
+
+    function formatTime(time: number) {
+        console.log(time);
+        const hours = Math.floor(time / 60);
+        const minutes = time % 60;
+        return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
+    }
+
 return (
-            <View style={{height: 100, borderRadius: 20, justifyContent: "flex-start", flexDirection: 'row', paddingHorizontal:20, marginVertical:5}} >
-                <Image
-                    style={styles.filmCard}
-                    source={{
-                        uri: 'https://fr.web.img4.acsta.net/pictures/21/11/16/10/01/4860598.jpg',
-                    }}
-                />
-                <View style={{height: 100, borderRadius: 20, justifyContent: "flex-start", flexDirection: 'column', paddingLeft:10}} >
-                    <Text style={{color: "white", fontWeight:"bold", fontSize:25}}>{props.name}</Text>
-                    <Text style={{color: "grey", fontWeight:"bold", fontSize:17}}>{props.name}</Text>
-                    <View style={{marginVertical:10}}>
-                        <BadgeFilm name={"Science-Ficton"}/>
-                    </View>
-                </View>
+    <View style={{
+        height: 100,
+        borderRadius: 20,
+        justifyContent: "flex-start",
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        marginVertical: 5
+    }}>
+        <Image
+            style={styles.filmCard}
+            source={{
+                uri: props.movie.poster_path,
+            }}
+        />
+        <View style={{
+            height: 100,
+            borderRadius: 20,
+            justifyContent: "flex-start",
+            flexDirection: 'column',
+            paddingLeft: 10
+        }}>
+            <Text numberOfLines={1} style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 25,
+                paddingRight: 50
+            }}>{props.movie.original_title}</Text>
+            <Text style={{color: "grey", fontWeight: "bold", fontSize: 17}}>{formatTime(props.movie.runtime)}</Text>
+            <View style={{marginVertical: 10}}>
+                <BadgeFilm name={"Science-Ficton"}/>
             </View>
+        </View>
+    </View>
 
 
         );

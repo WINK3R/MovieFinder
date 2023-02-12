@@ -1,0 +1,4 @@
+
+export const FETCH_TRENDING_ID : string = "FETCH_TRENDING_ID";
+export const FETCH_TRENDING_MOVIE: string = "FETCH_TRENDING_MOVIE";
+export const POP_FIRST_TRENDING: string = "POP_FIRST_TRENDING";
