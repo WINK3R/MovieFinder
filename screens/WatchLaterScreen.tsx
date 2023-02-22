@@ -12,6 +12,9 @@ import {getTrendingID, getWatchLater, getWatchLaterMovies} from "../redux/action
 import Movie from "../model/Movie";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'WatchLater'>) {
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState<Movie[]>([]);
+    const [masterDataSource, setMasterDataSource] = useState([]);
     const insets = useSafeAreaInsets();
     const styles = StyleSheet.create({
         container: {
@@ -50,13 +53,23 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
         console.log("test11111:", watchLaterMovies);
         loadWatchLater();
     }, [dispatch]);
-    const leftContent = <Text>Pull to activate</Text>;
 
-    const rightButtons = [
-        <TouchableHighlight><Text>Button 1</Text></TouchableHighlight>,
-        <TouchableHighlight><Text>Button 2</Text></TouchableHighlight>
-    ];
-
+    const searchFilterFunction = (text : string) => {
+        if (text) {
+            const newData = watchLaterMovies.filter(function (item : Movie) {
+                const itemData = item.original_title
+                    ? item.original_title.toUpperCase()
+                    : ''.toUpperCase();
+                const textData = text.toUpperCase();
+                return itemData.indexOf(textData) > -1;
+            });
+            setFilteredDataSource(newData);
+            setSearch(text);
+        } else {
+            setFilteredDataSource(masterDataSource);
+            setSearch(text);
+        }
+    };
 
     return (
       <SafeAreaView style={styles.container}>
@@ -69,10 +82,12 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
           />
 
           <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
-              <TextInput style={{width:'100%', height:40, marginHorizontal:20}} ></TextInput>
+              <TextInput style={{width:'100%', height:40, marginHorizontal:20}}onChangeText={(text) => searchFilterFunction(text)}
+                         value={search}
+              ></TextInput>
           </View>
           <FlatList
-              data={watchLaterMovies}
+              data={search.length !== 0? filteredDataSource: watchLaterMovies}
               keyExtractor={item => item.original_title}
               renderItem={({item}) => <ListWidget movie={item} ></ListWidget>}
           />
@@ -136,7 +151,10 @@ return (
             }}>{props.movie.original_title}</Text>
             <Text style={{color: "grey", fontWeight: "bold", fontSize: 17}}>{formatTime(props.movie.runtime)}</Text>
             <View style={{marginVertical: 10}}>
-                <BadgeFilm name={"Science-Ficton"}/>
+                <FlatList horizontal
+                          data={props.movie.genres}
+                          renderItem={({item}) => <BadgeFilm name={item}></BadgeFilm>}
+                />
             </View>
         </View>
     </View>

@@ -9,7 +9,7 @@ import {
     Image,
     ImageBackground,
     SafeAreaView,
-    ActivityIndicator, FlatList
+    ActivityIndicator, FlatList, Animated, Easing
 } from 'react-native';
 import {RootStackScreenProps} from "../types";
 import {useEffect, useRef, useState} from "react";
@@ -17,8 +17,6 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {addMovieToWatchLater, getTrendingID, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
 import {useDispatch, useSelector} from 'react-redux';
 import Movie from "../model/Movie";
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {ListWidget} from "./WatchLaterScreen.js";
 
 export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
     // @ts-ignore
@@ -95,7 +93,6 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
 
     function popFirstTrending(props: Movie){
         dispatch(removeMovieTrending(props));
-        dispatch(removeMovieTrending(props));
     }
 
     function formatTime(time: number) {
@@ -104,6 +101,21 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
         const minutes = time % 60;
         return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
     }
+    let rotateValueHolder = new Animated.Value(0);
+
+     function startImageRotateFunction(){
+        rotateValueHolder.setValue(0);
+        Animated.timing(rotateValueHolder, {
+            toValue: 0.5,
+            duration: 800,
+            easing: Easing.linear,
+            useNativeDriver: true,
+        }).start();}
+
+    const RotateData = rotateValueHolder.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg'],
+    });
 
     return(
         <>
@@ -161,21 +173,23 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
                     </View>
                     <Text style={{color: "lightgray", fontSize: 20, fontWeight: "bold"}}>{trendingMovies[0].release_date}</Text>
                 </View>
-                <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
+                <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '20%', width:'100%'}}>
                     <TouchableOpacity onPress={() => addWatchLater(trendingMovies[0])}>
                         <Image
-                            source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
+                            source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'45%', aspectRatio: 1,}}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => popFirstTrending(trendingMovies[0])}>
-                        <Image
-                            source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
+                    <TouchableOpacity onPress={
+                        () => popFirstTrending(trendingMovies[0]) }>
+                        <Animated.Image
+                            source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'45%',aspectRatio: 1,transform: [{ rotate: RotateData }],
+                        }}
                         />
 
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Image
-                            source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
+                            source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'45%', aspectRatio: 1,}}
                         />
 
                     </TouchableOpacity>

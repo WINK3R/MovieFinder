@@ -47,7 +47,7 @@ export const getTrendingID = () => {
             const MovieList: Movie[] = [];
             Promise.all(idList.map(async elt => {
                 try{
-                    const infoPromise = await fetch(config.base_url + "movie/"+elt+"?api_key=" + config.api_key);
+                    const infoPromise = await fetch(config.base_url + "movie/"+elt+"?api_key=" + config.api_key + "&language=fr-FR");
                     //const infoJson = await infoPromise.json();
                     //console.log('infos---------', infoJson);
                     //MovieList.push(new Movie(infoJson["original_title"], infoJson["poster_path"],infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"]))
@@ -67,7 +67,7 @@ export const getTrendingID = () => {
                             });
                             console.log('infos---------', elt);
                             // @ts-ignore
-                            MovieList.push(new Movie(infoJson["original_title"], infoJson["poster_path"],infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"], genreRow))
+                            MovieList.push(new Movie(infoJson["title"], infoJson["poster_path"],infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"], genreRow, infoJson["overview"]))
                         })
                         try {
                             //console.log("tortue", MovieList)
