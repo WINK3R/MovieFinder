@@ -8,10 +8,10 @@ import {
 import config from "../../constants/config";
 import Movie from "../../model/Movie";
 
-export const setTrendingID = (TrendingIDList: Movie[]) => {
+export const getWatchLaterMovies = (WatchLaterList: Movie[]) => {
     return {
-        type: FETCH_TRENDING_ID,
-        payload: TrendingIDList,
+        type: FETCH_WATCHLATER,
+        payload: WatchLaterList,
     };
 }
 
@@ -20,6 +20,11 @@ export const fetchWatchLater = (WatchLaterList: Movie[]) => {
         type: FETCH_WATCHLATER,
         payload: WatchLaterList,
     };
+}
+
+export const getWatchLater = () => {
+    const MovieList: Movie[] = [];
+    fetchWatchLater(MovieList);
 }
 
 export const setinfoMovie = (TrendingMovieList: Movie[]) => {
@@ -48,18 +53,29 @@ export const getTrendingID = () => {
                     //MovieList.push(new Movie(infoJson["original_title"], infoJson["poster_path"],infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"]))
                     return infoPromise;
                 }catch (err){
-                    console.log('ErrorGet---------', err);
+                    //console.log('ErrorGet---------', err);
                 }
             })).then(function (responses){
                 Promise.all(responses.map(result=>result.json()))
                     .then(function (elements){
                         elements.map(elt=> {
                             const infoJson = elt;
+                            const genreRow : String[]= [];
+                            // @ts-ignore
+                            elt["genres"].map(genre => {
+                                genreRow.push(genre.name);
+                            });
                             console.log('infos---------', elt);
-                            MovieList.push(new Movie(infoJson["original_title"], infoJson["poster_path"],infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"]))
+                            // @ts-ignore
+                            MovieList.push(new Movie(infoJson["original_title"], infoJson["poster_path"],infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"], genreRow))
                         })
-                        console.log("tortue", MovieList)
-                        dispatch(setinfoMovie(MovieList));
+                        try {
+                            //console.log("tortue", MovieList)
+                            dispatch(setinfoMovie(MovieList));
+                        }
+                        catch (err){
+                            //console.log('ErrorGet---------', err);
+                        }
                     })
 
             });
@@ -77,7 +93,8 @@ export const removeMovieTrending = (movie: Movie) => {
     }
 }
 
-export const addMovieToWatchLater = (movie : any) => {
+
+export const addMovieToWatchLater = (movie : Movie) => {
     return{
         type: ADD_WATCHLATER,
         payload: movie

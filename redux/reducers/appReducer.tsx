@@ -3,11 +3,12 @@ import Movie from "../../model/Movie";
 const initialState = {
     trendingIDs: [],
     trendingMovies: [],
-    watchLaterMovies: [],
+    watchLaterMovies: [] as Movie[],
 }
 
 // @ts-ignore
 export default appReducer = (state = initialState, action) => {
+    console.log(action.payload)
     switch (action.type) {
         case FETCH_TRENDING_ID:
             // @ts-ignore
@@ -21,7 +22,7 @@ export default appReducer = (state = initialState, action) => {
             return {...state, trendingMovies: [...state.trendingMovies.filter((item : Movie) => item !== action.payload)]};
         case ADD_WATCHLATER:
             // @ts-ignore
-            return {...state,trendingMovies:action.payload};
+            return {...state,watchLaterMovies: [action.payload,...state.watchLaterMovies]};
         default:
             return state;
     }

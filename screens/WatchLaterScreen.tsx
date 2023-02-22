@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, SafeAreaView, Text, View, Image, TextInput} from 'react-native';
+import {FlatList, StyleSheet, SafeAreaView, Text, View, Image, TextInput, TouchableHighlight} from 'react-native';
 import * as React from "react";
 import {BadgeFilm} from "./HomeScreen";
 import { FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
@@ -8,11 +8,11 @@ import {RootTabScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useDispatch,useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
-import {getTrendingID} from "../redux/actions/actionGetTrendingID";
+import {getTrendingID, getWatchLater, getWatchLaterMovies} from "../redux/actions/actionGetTrendingID";
 import Movie from "../model/Movie";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'WatchLater'>) {
     const insets = useSafeAreaInsets();
-
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -39,30 +39,45 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
 
         },
     });
-    const [isLoading, setLoading] = useState(true);
+    const dispatch = useDispatch();
     // @ts-ignore
-    const trendingMovies = useSelector(state => state.appReducer.watchLaterMovies);
+    const watchLaterMovies = useSelector(state => state.appReducer.watchLaterMovies);
+    useEffect(() => {
+        const loadWatchLater = async () => {
+            // @ts-ignore
+            await dispatch(getWatchLater());
+        };
+        console.log("test11111:", watchLaterMovies);
+        loadWatchLater();
+    }, [dispatch]);
+    const leftContent = <Text>Pull to activate</Text>;
 
-  return (
+    const rightButtons = [
+        <TouchableHighlight><Text>Button 1</Text></TouchableHighlight>,
+        <TouchableHighlight><Text>Button 2</Text></TouchableHighlight>
+    ];
+
+
+    return (
       <SafeAreaView style={styles.container}>
           <View style={{height: 50, justifyContent: "flex-start",flexDirection: 'row', paddingHorizontal:20,  marginBottom: 15,marginVertical:5, alignItems:"flex-end"}} >
               <FontAwesomeIcon icon={faClock} style={{marginBottom: -5, marginRight: 20}} size={50} color="white" />
-
                 <Text style={{color: "white", fontSize:30}}>Watch Later</Text>
           </View>
           <Image
               source={require('../assets/images/delimiter.png')} style={{height: 2, width: 400, resizeMode:"stretch"}}
           />
+
           <View style={{height:40, width:400, backgroundColor:"grey", borderRadius:20, marginVertical:10, alignSelf:"center"}}>
               <TextInput style={{width:'100%', height:40, marginHorizontal:20}} ></TextInput>
           </View>
           <FlatList
-              data={trendingMovies}
+              data={watchLaterMovies}
               keyExtractor={item => item.original_title}
               renderItem={({item}) => <ListWidget movie={item} ></ListWidget>}
           />
       </SafeAreaView>
-  );
+    );
 }
 type ListWidgetProps = {
     movie : Movie
@@ -70,6 +85,7 @@ type ListWidgetProps = {
 }
 
 export function ListWidget(props: ListWidgetProps) {
+
     const insets = useSafeAreaInsets();
 
     const styles = StyleSheet.create({
@@ -90,6 +106,7 @@ export function ListWidget(props: ListWidgetProps) {
     }
 
 return (
+    <Swipeable>
     <View style={{
         height: 100,
         borderRadius: 20,
@@ -123,6 +140,7 @@ return (
             </View>
         </View>
     </View>
+    </Swipeable>
 
 
         );

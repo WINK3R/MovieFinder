@@ -9,22 +9,22 @@ import {
     Image,
     ImageBackground,
     SafeAreaView,
-    ActivityIndicator
+    ActivityIndicator, FlatList
 } from 'react-native';
 import {RootStackScreenProps} from "../types";
-import Rive from 'rive-react-native';
 import {useEffect, useRef, useState} from "react";
-import {RiveViewManager} from "rive-react-native/lib/typescript/Rive.js";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {addMovieToWatchLater, getTrendingID, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
 import {useDispatch, useSelector} from 'react-redux';
 import Movie from "../model/Movie";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {ListWidget} from "./WatchLaterScreen.js";
 
 export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
 
-    console.log("liste [0]: ", trendingMovies[0]);
+    //console.log("liste [0]: ", trendingMovies[0]);
 
     const insets = useSafeAreaInsets();
 
@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
             // @ts-ignore
             await dispatch(getTrendingID());
         };
-        console.log("test1:", trendingMovies);
+        //console.log("test1:", trendingMovies);
         loadTrendingID();
     }, [dispatch]);
 
@@ -89,23 +89,34 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
 
     }
     function addWatchLater(props: Movie){
-
-       //dispatch(addMovieToWatchLater(props));
+       dispatch(addMovieToWatchLater(props));
        dispatch(removeMovieTrending(props));
+    }
+
+    function popFirstTrending(props: Movie){
+        dispatch(removeMovieTrending(props));
+        dispatch(removeMovieTrending(props));
+    }
+
+    function formatTime(time: number) {
+        console.log(time);
+        const hours = Math.floor(time / 60);
+        const minutes = time % 60;
+        return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
     }
 
     return(
         <>
         {trendingMovies.length !== 0 && (
         <SafeAreaView style={styles.background}>
-                <ImageBackground blurRadius={20}
+                <ImageBackground blurRadius={8}
                                  style={{
                                      position: 'absolute',
-                                     width: "120%",
-                                     height: "120%",
+                                     width: "200%",
+                                     height: "200%",
                                      justifyContent: "center",
                                      alignItems: "center",
-                                     opacity: 0.28
+                                     opacity: 0.48
                                  }}
                                  source={{
                                      uri: trendingMovies[0].poster_path,
@@ -140,14 +151,15 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
                 <View style={{ flexDirection: 'column', alignSelf: 'flex-start', alignItems: 'flex-start', paddingHorizontal: 30, flex: 1 }}>
 
                     <View style={{ flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'flex-start', width: "100%"}}>
-                        <BadgeFilm name={"Science-fiction"}></BadgeFilm>
-                        <BadgeFilm name={"Science-fiction"}></BadgeFilm>
-                        <BadgeFilm name={"9:11"}></BadgeFilm>
+                        <FlatList horizontal
+                            data={trendingMovies[0].genres}
+                            renderItem={({item}) => <BadgeFilm name={item}></BadgeFilm>}
+                        />
                     </View>
                     <View>
                         <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>{trendingMovies[0].original_title}</Text>
                     </View>
-                    <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>{trendingMovies[0].release_date}</Text>
+                    <Text style={{color: "lightgray", fontSize: 20, fontWeight: "bold"}}>{trendingMovies[0].release_date}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
                     <TouchableOpacity onPress={() => addWatchLater(trendingMovies[0])}>
@@ -155,7 +167,7 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
                             source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => popFirstTrending(trendingMovies[0])}>
                         <Image
                             source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
                         />
