@@ -42,15 +42,7 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
     const [isLoading, setLoading] = useState(true);
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.watchLaterMovies);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const loadTrendingID = async () => {
-            // @ts-ignore
-            await dispatch(getTrendingID());
-        };
-        loadTrendingID();
-        console.log("test2:", trendingMovies);
-    }, [dispatch]);
+
   return (
       <SafeAreaView style={styles.container}>
           <View style={{height: 50, justifyContent: "flex-start",flexDirection: 'row', paddingHorizontal:20,  marginBottom: 15,marginVertical:5, alignItems:"flex-end"}} >

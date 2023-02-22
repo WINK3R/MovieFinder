@@ -73,10 +73,16 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
     });
 
 
-
     const dispatch = useDispatch();
 
-
+    useEffect(() => {
+        const loadTrendingID = async () => {
+            // @ts-ignore
+            await dispatch(getTrendingID());
+        };
+        console.log("test1:", trendingMovies);
+        loadTrendingID();
+    }, [dispatch]);
 
     type ItemProps = {
         movie : Movie
@@ -88,80 +94,83 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
        dispatch(removeMovieTrending(props));
     }
 
-return(
-    <SafeAreaView style={styles.background}>
-            <ImageBackground blurRadius={20}
-                             style={{
-                                 position: 'absolute',
-                                 width: "120%",
-                                 height: "120%",
-                                 justifyContent: "center",
-                                 alignItems: "center",
-                                 opacity: 0.28
-                             }}
-                             source={{
-                                 uri: trendingMovies[0].poster_path,
-                             }}
-            ></ImageBackground>
-            <View style={styles.image}>
-                <Image
-                    style={styles.filmCard}
-                    source={{
-                        uri: trendingMovies[0].poster_path,
-                    }}
-                />
-            </View>
-            <View style={{height:35, marginTop: 10, marginBottom: 15}}>
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={true}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                    <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-
-
-
-                </ScrollView>
-            </View>
-            <View style={{ flexDirection: 'column', alignSelf: 'flex-start', alignItems: 'flex-start', paddingHorizontal: 30, flex: 1 }}>
-
-                <View style={{ flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'flex-start', width: "100%"}}>
-                    <BadgeFilm name={"Science-fiction"}></BadgeFilm>
-                    <BadgeFilm name={"Science-fiction"}></BadgeFilm>
-                    <BadgeFilm name={"9:11"}></BadgeFilm>
+    return(
+        <>
+        {trendingMovies.length !== 0 && (
+        <SafeAreaView style={styles.background}>
+                <ImageBackground blurRadius={20}
+                                 style={{
+                                     position: 'absolute',
+                                     width: "120%",
+                                     height: "120%",
+                                     justifyContent: "center",
+                                     alignItems: "center",
+                                     opacity: 0.28
+                                 }}
+                                 source={{
+                                     uri: trendingMovies[0].poster_path,
+                                 }}
+                ></ImageBackground>
+                <View style={styles.image}>
+                    <Image
+                        style={styles.filmCard}
+                        source={{
+                            uri: trendingMovies[0].poster_path,
+                        }}
+                    />
                 </View>
-                <View>
-                    <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>{trendingMovies[0].original_title}</Text>
+                <View style={{height:35, marginTop: 10, marginBottom: 15}}>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={true}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+
+
+
+                    </ScrollView>
                 </View>
-                <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>{trendingMovies[0].release_date}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
-                <TouchableOpacity onPress={() => addWatchLater(trendingMovies[0])}>
-                    <Image
-                        source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image
-                        source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
-                    />
+                <View style={{ flexDirection: 'column', alignSelf: 'flex-start', alignItems: 'flex-start', paddingHorizontal: 30, flex: 1 }}>
 
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <Image
-                        source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
-                    />
+                    <View style={{ flexDirection: 'row', alignSelf: 'flex-start', justifyContent: 'flex-start', width: "100%"}}>
+                        <BadgeFilm name={"Science-fiction"}></BadgeFilm>
+                        <BadgeFilm name={"Science-fiction"}></BadgeFilm>
+                        <BadgeFilm name={"9:11"}></BadgeFilm>
+                    </View>
+                    <View>
+                        <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>{trendingMovies[0].original_title}</Text>
+                    </View>
+                    <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>{trendingMovies[0].release_date}</Text>
+                </View>
+                <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
+                    <TouchableOpacity onPress={() => addWatchLater(trendingMovies[0])}>
+                        <Image
+                            source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
+                        />
 
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>);
-    
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
+                        />
+
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>)}
+        </>
+)
 }
 type BadgeGenreProps = {
     name : String
@@ -170,7 +179,7 @@ type BadgeGenreProps = {
 }
 
 export function BadgeGenre(props: BadgeGenreProps) {
-    if(props.isSelected==false){
+    if(props.isSelected===false){
         return (
             <View style={{paddingHorizontal: 20,  marginHorizontal: 5,height: 35, backgroundColor: '#2E2E2E', borderRadius: 20, justifyContent: "center"}} >
                 <Text style={{color: "white"}}>{props.name}</Text>
