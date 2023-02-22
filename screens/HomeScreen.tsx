@@ -123,12 +123,12 @@ export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>)
                     <ScrollView
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}>
-                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                        <BadgeGenre name={"cc"} isSelected={true}></BadgeGenre>
-                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
-                        <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"Popular"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"Trending"} isSelected={true}></BadgeGenre>
+                        <BadgeGenre name={"Classic"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"New"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"Cartoon"} isSelected={false}></BadgeGenre>
+                        <BadgeGenre name={"Serie"} isSelected={false}></BadgeGenre>
                         <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
                         <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
                         <BadgeGenre name={"cc"} isSelected={false}></BadgeGenre>
