@@ -7,12 +7,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import {RootTabScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useDispatch,useSelector} from 'react-redux';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {getTrendingID} from "../redux/actions/actionGetTrendingID";
 import Movie from "../model/Movie";
 export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'WatchLater'>) {
     const insets = useSafeAreaInsets();
-
 
     const styles = StyleSheet.create({
         container: {
@@ -40,18 +39,17 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
 
         },
     });
-
+    const [isLoading, setLoading] = useState(true);
     // @ts-ignore
-    const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
-
+    const trendingMovies = useSelector(state => state.appReducer.watchLaterMovies);
     const dispatch = useDispatch();
-
     useEffect(() => {
         const loadTrendingID = async () => {
             // @ts-ignore
             await dispatch(getTrendingID());
         };
         loadTrendingID();
+        console.log("test2:", trendingMovies);
     }, [dispatch]);
   return (
       <SafeAreaView style={styles.container}>
@@ -73,10 +71,7 @@ export default function WatchLaterScreen({ navigation }: RootTabScreenProps<'Wat
           />
       </SafeAreaView>
   );
-
 }
-
-
 type ListWidgetProps = {
     movie : Movie
 

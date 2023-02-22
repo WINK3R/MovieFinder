@@ -1,10 +1,10 @@
 class Movie {
-    original_title: string
+    public original_title: string
 
-    poster_path: string
-    runtime: number
-    vote_average : number
-    release_date: string
+    public poster_path: string
+    public runtime: number
+    public vote_average : number
+    public release_date: string
 
     constructor(original_title: string, poster_path: string,runtime: number, vote_average: number, release_date : string) {
         this.original_title = original_title;
@@ -13,6 +13,7 @@ class Movie {
         this.vote_average = vote_average;
         this.release_date = release_date;
     }
+
 
 
 

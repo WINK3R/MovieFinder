@@ -1,16 +1,31 @@
 import * as React from 'react';
-import {Button,TouchableOpacity,ScrollView,View, Text, StyleSheet, Image, ImageBackground, SafeAreaView} from 'react-native';
+import {
+    Button,
+    TouchableOpacity,
+    ScrollView,
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    ImageBackground,
+    SafeAreaView,
+    ActivityIndicator
+} from 'react-native';
 import {RootStackScreenProps} from "../types";
 import Rive from 'rive-react-native';
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {RiveViewManager} from "rive-react-native/lib/typescript/Rive.js";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {getTrendingID, } from "../redux/actions/actionGetTrendingID";
+import {addMovieToWatchLater, getTrendingID, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
 import {useDispatch, useSelector} from 'react-redux';
-import Movie from "../model/Movie.js";
+import Movie from "../model/Movie";
 
-export default function App({ navigation }: RootStackScreenProps<'Home'>) {
-    const riveRef = useRef();
+export default function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
+    // @ts-ignore
+    const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
+
+    console.log("liste [0]: ", trendingMovies[0]);
+
     const insets = useSafeAreaInsets();
 
     const styles = StyleSheet.create({
@@ -30,7 +45,6 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
             marginLeft:'auto',
             marginRight:'auto',
             borderRadius: 15,
-
 
         },
         image: {
@@ -58,26 +72,24 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
 
     });
 
-    // @ts-ignore
-    const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
+
 
     const dispatch = useDispatch();
 
-    let firstelement: Movie = trendingMovies[0];
 
-    useEffect(() => {
-        const loadTrendingID = async () => {
-            // @ts-ignore
-            await dispatch(getTrendingID());
-        };
-        loadTrendingID();
-        firstelement = trendingMovies[0];
-    }, [dispatch]);
 
-    // @ts-ignore
-    const onPress = () =>   this.setState({trendingMovies: trendingMovies.shift()}) ;
-    return (
-        <SafeAreaView style={styles.background}>
+    type ItemProps = {
+        movie : Movie
+
+    }
+    function addWatchLater(props: Movie){
+
+       //dispatch(addMovieToWatchLater(props));
+       dispatch(removeMovieTrending(props));
+    }
+
+return(
+    <SafeAreaView style={styles.background}>
             <ImageBackground blurRadius={20}
                              style={{
                                  position: 'absolute',
@@ -88,14 +100,14 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
                                  opacity: 0.28
                              }}
                              source={{
-                                 uri: firstelement.poster_path,
+                                 uri: trendingMovies[0].poster_path,
                              }}
             ></ImageBackground>
             <View style={styles.image}>
                 <Image
                     style={styles.filmCard}
                     source={{
-                        uri: firstelement.poster_path,
+                        uri: trendingMovies[0].poster_path,
                     }}
                 />
             </View>
@@ -124,35 +136,33 @@ export default function App({ navigation }: RootStackScreenProps<'Home'>) {
                     <BadgeFilm name={"Science-fiction"}></BadgeFilm>
                     <BadgeFilm name={"9:11"}></BadgeFilm>
                 </View>
-                    <View>
-                        <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>{firstelement.original_title}</Text>
-                    </View>
-                <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>{firstelement.release_date}</Text>
+                <View>
+                    <Text numberOfLines={1} style={{color: "white", fontSize: 28, fontWeight: "bold", paddingTop: 5}}>{trendingMovies[0].original_title}</Text>
+                </View>
+                <Text style={{color: "grey", fontSize: 20, fontWeight: "bold"}}>{trendingMovies[0].release_date}</Text>
             </View>
             <View style={{ flexDirection: 'row' ,alignItems: 'center', justifyContent: "space-evenly", paddingHorizontal: 30, height: '15%', width:'100%'}}>
-            <TouchableOpacity onPress={onPress}>
-                <Image
-                    source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
-                />
+                <TouchableOpacity onPress={() => addWatchLater(trendingMovies[0])}>
+                    <Image
+                        source={require('../assets/images/WatchLater.png')} style={{ resizeMode:"stretch",  height:'65%', aspectRatio: 1,}}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image
+                        source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
+                    />
 
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/Generate.png')} style={{resizeMode:"stretch", height:'85%',aspectRatio: 1,}}
-                />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <Image
+                        source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
+                    />
 
-            </TouchableOpacity>
-            <TouchableOpacity>
-                <Image
-                    source={require('../assets/images/Favorite.png')} style={{ resizeMode:"stretch", height:'65%', aspectRatio: 1,}}
-                />
-
-            </TouchableOpacity>
+                </TouchableOpacity>
             </View>
-        </SafeAreaView>
-    );
+        </SafeAreaView>);
+    
 }
-
 type BadgeGenreProps = {
     name : String
     isSelected: Boolean
