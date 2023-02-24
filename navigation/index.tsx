@@ -11,7 +11,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Pressable} from 'react-native';
+import {Appearance, ColorSchemeName, Pressable} from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -57,13 +57,14 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-    const colorScheme = useColorScheme();
+    let colorScheme = useColorScheme();
+    const isLightTheme = colorScheme === "light"
 
     return (
         <BottomTab.Navigator
             initialRouteName="Home"
             screenOptions={{
-                tabBarActiveTintColor: "white",
+                tabBarActiveTintColor: isLightTheme ? "black" : "white",
 
             }}>
             <BottomTab.Screen
