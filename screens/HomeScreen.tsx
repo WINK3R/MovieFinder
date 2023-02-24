@@ -31,7 +31,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [displayIndex, setdisplayIndex] = useState(0);
-
+    var swiper = null;
 
     //console.log("liste [0]: ", trendingMovies[0]);
 
@@ -98,7 +98,6 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Créez une date avec la valeur actuelle
         const interval = setInterval(() => {
             const today = moment();
 
@@ -141,11 +140,19 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     function addWatchLater(props: Movie) {
         dispatch(addMovieToWatchLater(props));
         dispatch(removeMovieTrending(props));
+        if (displayIndex == trendingMovies.length - 1) {
+            setdisplayIndex(0);
+            swiper.swipeLeft();
+        }
     }
 
 
     function popFirstTrending(props: Movie) {
         dispatch(removeMovieTrending(props));
+        if (displayIndex == trendingMovies.length - 1) {
+            setdisplayIndex(0);
+            swiper.swipeLeft();
+        }
     }
 
     function formatTime(time: number) {
@@ -172,8 +179,11 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                              source={require("../assets/images/background.png")
                              }
             ></ImageBackground>
-            {trendingMovies[displayIndex] !== undefined && (
+
+            {trendingMovies.length !== 0 && (
+
                 <SafeAreaView style={styles.background1}>
+
 
                     <ImageBackground blurRadius={8}
                                      style={{
@@ -188,7 +198,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
                                      }}
                                      source={{
-                                         uri: trendingMovies[displayIndex].poster_path,
+                                         uri: trendingMovies[displayIndex]?.poster_path,
                                      }}
                     ></ImageBackground>
                     <View style={{flexDirection: 'column', alignSelf: 'center', paddingHorizontal: 30, width: '100%', alignItems: "center", paddingTop: 10, flex: 0.07}}>
@@ -204,36 +214,45 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                     </View>
 
                     <CardsSwipe
+                        ref={(rf) => {
+                            swiper = rf
+                        }}
                         containerStyle={{zIndex: 20}}
                         cards={trendingMovies}
+                        loop={true}
                         onSwipedLeft={(index) => {
-                            if (index + 1 < trendingMovies.length)
-                                setdisplayIndex(index + 1)
-                            else
+                            console.log(index)
+                            if (index < trendingMovies.length - 1) {
+
+                                setdisplayIndex(index + 1);
+
+                            } else
                                 setdisplayIndex(0)
                         }
                         }
                         onSwipedRight={(index) => {
-                            if (index + 1 < trendingMovies.length)
+                            if (index < trendingMovies.length)
                                 setdisplayIndex(index + 1)
                             else
                                 setdisplayIndex(0)
                         }}
 
-                        renderCard={(card) => (
-                            <Image
-                                style={styles.filmCard}
-                                source={{
-                                    uri: card.poster_path,
-                                }}
-                            />)}
+                        renderCard={(card) =>
+                            (
+                                <Image
+                                    style={styles.filmCard}
+                                    source={{
+                                        uri: card?.poster_path,
+                                    }}
+                                />)
+                        }
                     />
 
 
                     <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: "space-evenly", paddingHorizontal: 30, width: '100%', position: "absolute", top: "74%", zIndex: 30}}>
                         <TouchableOpacity onPress={() => {
 
-                            addWatchLater(trendingMovies[0]);
+                            addWatchLater(trendingMovies[displayIndex]);
 
 
                         }}>
@@ -243,7 +262,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                         </TouchableOpacity>
                         <TouchableOpacity onPress={
                             () => {
-                                popFirstTrending(trendingMovies[0]);
+                                popFirstTrending(trendingMovies[displayIndex]);
                             }}>
                             <Image
                                 source={require('../assets/images/delete_button.png')} style={{
@@ -272,7 +291,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
 
                 </SafeAreaView>)}
-            {trendingMovies[displayIndex] === undefined && (
+            {trendingMovies.length === 0 && (
                 <SafeAreaView style={styles.background2}>
                     <View style={{alignItems: "center", width: "100%", height: "100%", justifyContent: "center", zIndex: 1}}>
                         <Text style={{color: "white", fontWeight: "600", fontSize: 35}}>Félicitations !</Text>
@@ -301,6 +320,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             )
 
             }
+
         </>
 
     )

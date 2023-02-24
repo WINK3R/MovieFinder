@@ -21,8 +21,47 @@ import FavoriteScreen from '../screens/FavoriteScreen';
 import HomeScreen from '../screens/HomeScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import {useCallback, useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {getTrendingID} from "../redux/actions/actionGetTrendingID";
+import * as SplashScreen from 'expo-splash-screen';
 
 export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName }) {
+    const [appIsReady, setAppIsReady] = useState(false);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        async function prepare() {
+            try {
+                const loadTrendingID = async () => {
+                    // @ts-ignore
+                    await dispatch(getTrendingID());
+                };
+                //console.log("test1:", trendingMovies);
+                loadTrendingID();
+            } catch (e) {
+                console.warn(e);
+            } finally {
+                // Tell the application to render
+                setAppIsReady(true);
+            }
+        }
+
+        prepare();
+    }, []);
+
+    const onLayoutRootView = useCallback(async () => {
+        if (appIsReady) {
+            // This tells the splash screen to hide immediately! If we call this after
+            // `setAppIsReady`, then we may see a blank screen while the app is
+            // loading its initial state and rendering its first pixels. So instead,
+            // we hide the splash screen once we know the root view has already
+            // performed layout.
+            await SplashScreen.hideAsync();
+        }
+    }, [appIsReady]);
+    if (!appIsReady) {
+        return null;
+    }
     return (
         <NavigationContainer
             linking={LinkingConfiguration}
