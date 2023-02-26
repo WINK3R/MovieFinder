@@ -21,7 +21,6 @@ import * as url from "url";
 import moment from 'moment';
 import CardsSwipe from 'react-native-cards-swipe';
 
-
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.trendingMovies);

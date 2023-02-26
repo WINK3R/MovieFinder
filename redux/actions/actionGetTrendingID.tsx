@@ -55,8 +55,6 @@ export const setinfoMovie = (TrendingMovieList: Movie[]) => {
     };
 }
 
-
-
 export const getTrendingID = () => {
     // @ts-ignore
     return async dispatch => {
@@ -113,7 +111,6 @@ export const removeMovieTrending = (movie: Movie) => {
         payload: movie
     }
 }
-
 
 export const addMovieToWatchLater = (movie : Movie) => {
     return{
