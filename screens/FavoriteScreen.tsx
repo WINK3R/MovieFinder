@@ -12,6 +12,7 @@ import {getTrendingID, getFavourite, getFavouriteMovies} from "../redux/actions/
 import Movie from "../model/Movie";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
+
 export default function FavoriteScreen({ navigation }: RootTabScreenProps<'Favorite'>) {
     const [search, setSearch] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState<Movie[]>([]);
