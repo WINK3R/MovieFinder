@@ -4,6 +4,8 @@ import {
     POP_FIRST_TRENDING,
     ADD_WATCHLATER,
     FETCH_WATCHLATER,
+    ADD_FAVOURITE,
+    FETCH_FAVOURITE
 } from '../constants';
 import config from "../../constants/config";
 import Movie from "../../model/Movie";
@@ -15,6 +17,13 @@ export const getWatchLaterMovies = (WatchLaterList: Movie[]) => {
     };
 }
 
+export const getFavouriteMovies = (FavouriteList: Movie[]) => {
+    return {
+        type: FETCH_FAVOURITE,
+        payload: FavouriteList,
+    };
+}
+
 export const fetchWatchLater = (WatchLaterList: Movie[]) => {
     return {
         type: FETCH_WATCHLATER,
@@ -22,9 +31,21 @@ export const fetchWatchLater = (WatchLaterList: Movie[]) => {
     };
 }
 
+export const fetchFavourite = (FavouriteList: Movie[]) => {
+    return {
+        type: FETCH_FAVOURITE,
+        payload: FavouriteList,
+    };
+}
+
 export const getWatchLater = () => {
     const MovieList: Movie[] = [];
     fetchWatchLater(MovieList);
+}
+
+export const getFavourite = () => {
+    const MovieList: Movie[] = [];
+    fetchFavourite(MovieList);
 }
 
 export const setinfoMovie = (TrendingMovieList: Movie[]) => {
@@ -97,6 +118,13 @@ export const removeMovieTrending = (movie: Movie) => {
 export const addMovieToWatchLater = (movie : Movie) => {
     return{
         type: ADD_WATCHLATER,
+        payload: movie
+    }
+}
+
+export const addMovieToFavourite = (movie : Movie) => {
+    return{
+        type: ADD_FAVOURITE,
         payload: movie
     }
 }

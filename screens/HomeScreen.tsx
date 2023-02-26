@@ -14,7 +14,7 @@ import {
 import {RootStackScreenProps} from "../types";
 import {useEffect, useRef, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {addMovieToWatchLater, getTrendingID, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
+import {addMovieToWatchLater, addMovieToFavourite, getTrendingID, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
 import {useDispatch, useSelector} from 'react-redux';
 import Movie from "../model/Movie";
 import * as url from "url";
@@ -139,6 +139,15 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
     function addWatchLater(props: Movie) {
         dispatch(addMovieToWatchLater(props));
+        dispatch(removeMovieTrending(props));
+        if (displayIndex == trendingMovies.length - 1) {
+            setdisplayIndex(0);
+            swiper.swipeLeft();
+        }
+    }
+
+    function addFavourite(props: Movie) {
+        dispatch(addMovieToFavourite(props));
         dispatch(removeMovieTrending(props));
         if (displayIndex == trendingMovies.length - 1) {
             setdisplayIndex(0);

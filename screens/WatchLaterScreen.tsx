@@ -39,8 +39,6 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
             width: 70,
             height: 100,
             borderRadius: 8,
-
-
         },
     });
     const dispatch = useDispatch();
@@ -95,6 +93,7 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
         </SafeAreaView>
     );
 }
+
 type ListWidgetProps = {
     movie: Movie
 
@@ -162,10 +161,5 @@ export function ListWidget(props: ListWidgetProps) {
 
             </View>
         </View>
-
-
     );
-
-
 }
-
