@@ -279,7 +279,10 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                             />
 
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {
+                            addFavourite(trendingMovies[displayIndex]);
+                        }
+                        }>
                             <Image
                                 source={require('../assets/images/like_button.png')} style={{resizeMode: "stretch", height: '55%', aspectRatio: 1,}}
                             />
