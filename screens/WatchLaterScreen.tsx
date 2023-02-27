@@ -11,6 +11,7 @@ import {useEffect, useState} from 'react';
 import {getTrendingID, getWatchLater, getWatchLaterMovies} from "../redux/actions/actionGetTrendingID";
 import Movie from "../model/Movie";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import {useNavigation} from "@react-navigation/native";
 
 export default function WatchLaterScreen({navigation}: RootTabScreenProps<'WatchLater'>) {
     const [search, setSearch] = useState('');
@@ -88,7 +89,7 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
             <FlatList
                 data={search.length !== 0 ? filteredDataSource : watchLaterMovies}
                 keyExtractor={item => item.original_title}
-                renderItem={({item}) => <ListWidget movie={item}></ListWidget>}
+                renderItem={({item}) => <TouchableHighlight onPress={() => navigation.navigate("Info", {"item": item})}><ListWidget movie={item}></ListWidget></TouchableHighlight>}
             />
         </SafeAreaView>
     );
@@ -100,7 +101,6 @@ type ListWidgetProps = {
 }
 
 export function ListWidget(props: ListWidgetProps) {
-
     const insets = useSafeAreaInsets();
 
     const styles = StyleSheet.create({
@@ -130,6 +130,7 @@ export function ListWidget(props: ListWidgetProps) {
             marginHorizontal: 20,
             marginBottom: 15
         }}>
+
             <Image
                 style={styles.filmCard}
                 source={{

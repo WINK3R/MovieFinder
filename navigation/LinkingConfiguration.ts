@@ -4,38 +4,44 @@
  * https://reactnavigation.org/docs/configuring-links
  */
 
-import { LinkingOptions } from '@react-navigation/native';
+import {LinkingOptions} from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { RootStackParamList } from '../types';
+import {RootStackParamList} from '../types';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.createURL('/')],
-  config: {
-    screens: {
-      Root: {
+    prefixes: [Linking.createURL('/')],
+    config: {
         screens: {
-          WatchLater: {
-            screens: {
-              WatchLaterScreen: 'WatchLater',
+            Root: {
+                screens: {
+                    WatchLater: {
+                        screens: {
+                            WatchLaterScreen: 'WatchLater',
+                        },
+                    },
+                    Home: {
+                        screens: {
+                            HomeScreen: 'Home',
+                        },
+                    },
+                    Favorite: {
+                        screens: {
+                            FavoriteScreen: 'Favorite',
+                        },
+                    },
+                    Info: {
+                        screens: {
+                            FavoriteScreen: 'InfoScreen',
+                        },
+                    },
+
+                },
             },
-          },
-          Home: {
-            screens: {
-              HomeScreen: 'Home',
-            },
-          },
-          Favorite: {
-            screens: {
-              FavoriteScreen: 'Favorite',
-            },
-          },
+            Modal: 'modal',
+            NotFound: '*',
         },
-      },
-      Modal: 'modal',
-      NotFound: '*',
     },
-  },
 };
 
 export default linking;

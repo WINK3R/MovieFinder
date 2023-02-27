@@ -20,6 +20,7 @@ import Movie from "../model/Movie";
 import * as url from "url";
 import moment from 'moment';
 import CardsSwipe from 'react-native-cards-swipe';
+import AnimatedLottieView from "lottie-react-native";
 
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
@@ -122,14 +123,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             //console.log("timer", h, m, s);
         });
         setTimeout(() => interval, 10000);
-
-        const loadTrendingID = async () => {
-            // @ts-ignore
-            await dispatch(getTrendingID());
-        };
-        //console.log("test1:", trendingMovies);
-        loadTrendingID();
-    }, [dispatch]);
+    }, []);
 
     type ItemProps = {
         movie: Movie
@@ -306,10 +300,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                 <SafeAreaView style={styles.background2}>
                     <View style={{alignItems: "center", width: "100%", height: "100%", justifyContent: "center", zIndex: 1}}>
                         <Text style={{color: "white", fontWeight: "600", fontSize: 35}}>Félicitations !</Text>
-                        <Image
-                            source={require('../assets/images/confetti.gif')}
-                            style={{width: 200, height: 200, marginVertical: 50}}
-                        />
+                        <AnimatedLottieView source={require("../assets/animation.json")} autoPlay={true} loop={true} style={{height: 200}}/>
                         <Text style={{color: "grey", fontWeight: "400", paddingHorizontal: 70, textAlign: "center"}}>Vous avez fini la collection du jour.
                             {"\n"}Revenez à la fin du décompte pour découvrir de nouvelles propositions.</Text>
 

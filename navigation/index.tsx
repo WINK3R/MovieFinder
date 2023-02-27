@@ -19,6 +19,7 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import WatchLaterScreen from '../screens/WatchLaterScreen';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import HomeScreen from '../screens/HomeScreen';
+import InfoScreen from '../screens/InfoScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import {useCallback, useEffect, useState} from "react";
@@ -85,6 +86,7 @@ function RootNavigator() {
             <Stack.Screen name="NotFound" component={NotFoundScreen} options={{title: 'Oops!'}}/>
             <Stack.Screen name="Favorite" component={FavoriteScreen} options={{headerShown: false}}/>
             <Stack.Screen name="WatchLater" component={WatchLaterScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Info" component={InfoScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
     );
 }
