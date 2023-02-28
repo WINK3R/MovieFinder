@@ -125,7 +125,7 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titlePage}>
-                <FontAwesomeIcon icon={faClock} style={styles.icon} size={50} color="white"/>
+                <FontAwesomeIcon icon={faClock} style={styles.icon} size={40} color="white"/>
                 <Text style={styles.h1}>Watch Later</Text>
             </View>
             <Image

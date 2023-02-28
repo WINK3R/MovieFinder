@@ -1,7 +1,7 @@
 import {FlatList, StyleSheet, SafeAreaView, Text, View, Image, TextInput, TouchableHighlight} from 'react-native';
 import * as React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faClock} from "@fortawesome/free-solid-svg-icons";
+import {faHeart} from "@fortawesome/free-solid-svg-icons";
 import {RootTabScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useDispatch, useSelector} from 'react-redux';
@@ -128,7 +128,7 @@ export default function FavoriteScreen({navigation}: RootTabScreenProps<'Favorit
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titlePage}>
-                <FontAwesomeIcon icon={faClock} style={styles.icon} size={50} color="white"/>
+                <FontAwesomeIcon icon={faHeart} style={styles.icon} size={40} color="white"/>
                 <Text style={styles.h1}>Watch Later</Text>
             </View>
             <Image
