@@ -1,39 +1,28 @@
 import * as React from 'react';
-import {
-    Button,
-    TouchableOpacity,
-    ScrollView,
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    ImageBackground,
-    SafeAreaView,
-    ActivityIndicator, FlatList
-} from 'react-native';
+import {TouchableOpacity, View, Text, StyleSheet, Image, ImageBackground, SafeAreaView} from 'react-native';
 import {RootStackScreenProps} from "../types";
 import {useEffect, useRef, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {addMovieToWatchLater, addMovieToFavourite, getTrendingID, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
+import {addMovieToWatchLater, addMovieToFavourite, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
 import {useDispatch, useSelector} from 'react-redux';
 import Movie from "../model/Movie";
-import * as url from "url";
 import moment from 'moment';
 import CardsSwipe from 'react-native-cards-swipe';
 import AnimatedLottieView from "lottie-react-native";
+import {Timer, Timer2} from "../components/TimerComponent";
+import {HeaderMovie} from "../components/HeaderMovieComponent";
 
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
-
+    const dispatch = useDispatch();
 
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [displayIndex, setdisplayIndex] = useState(0);
-    var swiper = null;
 
-    //console.log("liste [0]: ", trendingMovies[0]);
+    var swiper: any = null;
 
     const insets = useSafeAreaInsets();
 
@@ -49,7 +38,6 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             width: '100%',
             paddingTop: insets.top,
         },
-
         container: {
             flex: 1,
         },
@@ -82,20 +70,62 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.5)',
         },
-        circle: {
-            width: 6,
-            height: 6,
-            borderRadius: 100 / 2,
-            marginTop: 4,
-            backgroundColor: "lightgray",
-            marginHorizontal: 8
+        explanation: {
+            color: "grey",
+            fontWeight: "400",
+            paddingHorizontal: 70,
+            textAlign: "center"
         },
+        h1: {
+            color: "white",
+            fontWeight: "600",
+            fontSize: 35
+        },
+        congratsSection: {
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+            justifyContent: "center",
+            zIndex: 1
+        },
+        button: {
+            resizeMode: "stretch",
+            height: '55%',
+            aspectRatio: 1,
+        },
+        buttonSection: {
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: "space-evenly",
+            paddingHorizontal: 30,
+            width: '100%',
+            position: "absolute",
+            top: "74%",
+            zIndex: 30
+        },
+        posterBackground: {
+            width: "150%",
+            height: "150%",
+            justifyContent: "center",
+            alignItems: "center",
+            opacity: 0.55,
+            position: 'absolute',
+            left: "-50%",
+            top: "-50%"
+        },
+        finishBackground: {
+            width: "110%",
+            height: "110%",
+            justifyContent: "center",
+            alignItems: "center",
+            opacity: 0.15,
+            position: "absolute",
+            zIndex: 0
+        }
 
 
     });
 
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -120,15 +150,9 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             const s = Math.floor((difference % (1000 * 60)) / 1000);
 
             setSeconds(s);
-            //console.log("timer", h, m, s);
         });
         setTimeout(() => interval, 10000);
     }, []);
-
-    type ItemProps = {
-        movie: Movie
-
-    }
 
     function addWatchLater(props: Movie) {
         dispatch(addMovieToWatchLater(props));
@@ -157,27 +181,12 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
         }
     }
 
-    function formatTime(time: number) {
-        const hours = Math.floor(time / 60);
-        const minutes = time % 60;
-        return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
-    }
-
 
     return (
 
         <>
             <ImageBackground blurRadius={0}
-                             style={{
-                                 width: "110%",
-                                 height: "110%",
-                                 justifyContent: "center",
-                                 alignItems: "center",
-                                 opacity: 0.15,
-                                 position: "absolute",
-                                 zIndex: 0
-
-                             }}
+                             style={styles.finishBackground}
                              source={require("../assets/images/background.png")
                              }
             ></ImageBackground>
@@ -188,32 +197,12 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
 
                     <ImageBackground blurRadius={29}
-                                     style={{
-                                         width: "150%",
-                                         height: "150%",
-                                         justifyContent: "center",
-                                         alignItems: "center",
-                                         opacity: 0.55,
-                                         position: 'absolute',
-                                         left: "-50%",
-                                         top: "-50%"
-
-                                     }}
+                                     style={styles.posterBackground}
                                      source={{
                                          uri: trendingMovies[displayIndex]?.poster_path,
                                      }}
                     ></ImageBackground>
-                    <View style={{flexDirection: 'column', alignSelf: 'center', paddingHorizontal: 30, width: '100%', alignItems: "center", paddingTop: 10, flex: 0.07}}>
-                        <Text numberOfLines={1} style={{color: "white", fontSize: 30, fontWeight: "bold", paddingTop: 5, alignSelf: "center"}}>{trendingMovies[displayIndex].original_title}</Text>
-                        <View style={{flexDirection: 'row', justifyContent: "center", alignItems: "center", alignSelf: "center"}}>
-                            <Text style={{color: "#D1D1D1", fontSize: 20, fontWeight: "normal", paddingTop: 5}}>{`${trendingMovies[displayIndex].release_date}`}</Text>
-                            <View style={styles.circle}/>
-                            <Text style={{color: "#D1D1D1", fontSize: 20, fontWeight: "normal", paddingTop: 5}}>{`${trendingMovies[displayIndex].genres[0]} ${trendingMovies[displayIndex].genres[1] !== undefined ? ", " + trendingMovies[0].genres[1] : ""}`}</Text>
-                            <View style={styles.circle}/>
-                            <Text style={{color: "#D1D1D1", fontSize: 20, fontWeight: "normal", paddingTop: 5}}>{`${formatTime(trendingMovies[displayIndex].runtime)}`}</Text>
-                        </View>
-                        <Stars note={trendingMovies[displayIndex].vote_average} size={110}/>
-                    </View>
+                    <HeaderMovie movie={trendingMovies[displayIndex]}></HeaderMovie>
 
                     <CardsSwipe
                         ref={(rf) => {
@@ -223,7 +212,6 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                         cards={trendingMovies}
                         loop={true}
                         onSwipedLeft={(index) => {
-                            console.log(index)
                             if (index < trendingMovies.length - 1) {
 
                                 setdisplayIndex(index + 1);
@@ -251,7 +239,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                     />
 
 
-                    <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: "space-evenly", paddingHorizontal: 30, width: '100%', position: "absolute", top: "74%", zIndex: 30}}>
+                    <View style={styles.buttonSection}>
                         <TouchableOpacity onPress={() => {
 
                             addWatchLater(trendingMovies[displayIndex]);
@@ -259,7 +247,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
                         }}>
                             <Image
-                                source={require('../assets/images/watchlater_button.png')} style={{resizeMode: "stretch", height: '55%', aspectRatio: 1,}}
+                                source={require('../assets/images/watchlater_button.png')} style={styles.button}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={
@@ -267,9 +255,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                                 popFirstTrending(trendingMovies[displayIndex]);
                             }}>
                             <Image
-                                source={require('../assets/images/delete_button.png')} style={{
-                                resizeMode: "stretch", height: '55%', aspectRatio: 1,
-                            }}
+                                source={require('../assets/images/delete_button.png')} style={styles.button}
                             />
 
                         </TouchableOpacity>
@@ -278,45 +264,24 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                         }
                         }>
                             <Image
-                                source={require('../assets/images/like_button.png')} style={{resizeMode: "stretch", height: '55%', aspectRatio: 1,}}
+                                source={require('../assets/images/like_button.png')} style={styles.button}
                             />
 
                         </TouchableOpacity>
                     </View>
-                    <View style={{zIndex: 1, alignContent: "center", justifyContent: "center", flex: 0.15, flexDirection: "row"}}>
-                        <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>Nouvelle collection dans</Text>
-                        <Image source={require('../assets/images/timer_icon.png')} style={{
-                            height: 30,
-                            resizeMode: 'contain',
-                            top: -5
-                        }}></Image>
-                        <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>{`${hours.toString().padStart(2, '0')}:`}</Text>
-                        <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>{`${minutes.toString().padStart(2, '0')}:`}</Text>
-                        <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>{`${seconds.toString().padStart(2, '0')}`}</Text>
-                    </View>
+                    <Timer hours={hours} minutes={minutes} seconds={seconds}></Timer>
 
 
                 </SafeAreaView>)}
             {trendingMovies.length === 0 && (
                 <SafeAreaView style={styles.background2}>
-                    <View style={{alignItems: "center", width: "100%", height: "100%", justifyContent: "center", zIndex: 1}}>
-                        <Text style={{color: "white", fontWeight: "600", fontSize: 35}}>Félicitations !</Text>
+                    <View style={styles.congratsSection}>
+                        <Text style={styles.h1}>Félicitations !</Text>
                         <AnimatedLottieView source={require("../assets/animation.json")} autoPlay={true} loop={true} style={{height: 200}}/>
-                        <Text style={{color: "grey", fontWeight: "400", paddingHorizontal: 70, textAlign: "center"}}>Vous avez fini la collection du jour.
+                        <Text style={styles.explanation}>Vous avez fini la collection du jour.
                             {"\n"}Revenez à la fin du décompte pour découvrir de nouvelles propositions.</Text>
 
-                        <View style={{zIndex: 1, alignItems: "center", justifyContent: "center", paddingHorizontal: 20, paddingVertical: 10, borderRadius: 100, flexDirection: "row", bottom: 0, backgroundColor: "white", marginTop: 50}}>
-                            <Text style={{color: "black", fontSize: 16, fontWeight: "500"}}>Nouvelle collection dans</Text>
-                            <Image source={require('../assets/images/timer_icon2.png')} style={{
-                                height: 30,
-                                resizeMode: 'contain', marginHorizontal: 7
-
-                            }}></Image>
-
-                            <Text style={{color: "black", fontSize: 16, fontWeight: "500"}}>{`${hours.toString().padStart(2, '0')}:`}</Text>
-                            <Text style={{color: "black", fontSize: 16, fontWeight: "500"}}>{`${minutes.toString().padStart(2, '0')}:`}</Text>
-                            <Text style={{color: "black", fontSize: 16, fontWeight: "500"}}>{`${seconds.toString().padStart(2, '0')}`}</Text>
-                        </View>
+                        <Timer2 hours={hours} minutes={minutes} seconds={seconds}></Timer2>
                     </View>
 
                 </SafeAreaView>
@@ -328,95 +293,12 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
     )
 }
-type BadgeGenreProps = {
-    name: String
-    isSelected: Boolean
-
-}
-
-export function BadgeGenre(props: BadgeGenreProps) {
-    if (props.isSelected === false) {
-        return (
-            <View style={{paddingHorizontal: 20, marginHorizontal: 5, height: 35, backgroundColor: '#2E2E2E', borderRadius: 20, justifyContent: "center"}}>
-                <Text style={{color: "white"}}>{props.name}</Text>
-            </View>
-
-        );
-    } else {
-        return (
-            <View style={{paddingHorizontal: 20, marginHorizontal: 5, height: 35, backgroundColor: '#5C5C5C', borderRadius: 20, borderWidth: 1, borderColor: "white", justifyContent: "center"}}>
-                <Text style={{color: "white"}}>{props.name}</Text>
-            </View>
-
-        );
-    }
 
 
-}
-
-type BadgeFilmProps = {
-    name: String
-
-}
-
-export function BadgeFilm(props: BadgeFilmProps) {
-
-    return (
-        <View style={{
-            paddingHorizontal: 15,
-            marginHorizontal: 5,
-            height: 30,
-            backgroundColor: '#8906B8',
-            borderRadius: 15,
-            justifyContent: "center",
-            alignSelf: "flex-start"
-        }}>
-            <Text style={{color: "white", fontSize: 12, fontWeight: "bold"}}>{props.name}</Text>
-        </View>
-
-    );
 
 
-}
 
-type StarsProps = {
-    note: number
-    size: number
 
-}
 
-export function Stars(props: StarsProps) {
-    let imageSource;
-    let note = props.note / 2;
-    if (note < 0.5)
-        imageSource = require('../assets/images/0.5stars_vote.png');
-    else if (note < 1)
-        imageSource = require('../assets/images/1stars_vote.png');
-    else if (note < 1.5)
-        imageSource = require('../assets/images/1.5stars_vote.png');
-    else if (note < 2)
-        imageSource = require('../assets/images/2stars_vote.png');
-    else if (note < 2.5)
-        imageSource = require('../assets/images/2.5stars_vote.png');
-    else if (note < 3)
-        imageSource = require('../assets/images/3stars_vote.png');
-    else if (note < 3.5)
-        imageSource = require('../assets/images/3.5stars_vote.png');
-    else if (note < 4)
-        imageSource = require('../assets/images/4stars_vote.png');
-    else if (note < 4.5)
-        imageSource = require('../assets/images/4.5stars_vote.png');
-    else if (note < 5)
-        imageSource = require('../assets/images/5stars_vote.png');
 
-    return (
-        <View>
-            <Image source={imageSource} style={{
-                width: props.size,
-                height: 40,
-                resizeMode: 'contain'
-            }}/>
-        </View>
-    );
-};
 

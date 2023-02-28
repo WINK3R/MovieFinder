@@ -40,7 +40,7 @@ export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName
                 //console.log("test1:", trendingMovies);
                 loadTrendingID();
             } catch (e) {
-                console.warn(e);
+                //console.warn(e);
             } finally {
                 // Tell the application to render
                 setAppIsReady(true);

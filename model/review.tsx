@@ -3,19 +3,19 @@ class Review {
 
     public pseudo: string
 
-    public profil_path: string
+    public profile_path: string
 
     public date: string
 
 
-    constructor(message: string, profil_path: string, date: string, pseudo: string) {
+    constructor(message: string, profile_path: string, date: string, pseudo: string) {
         this.message = message;
-        if (profil_path === null) {
-            this.profil_path = "https://thumbs.dreamstime.com/b/profil-vectoriel-avatar-par-d%C3%A9faut-utilisateur-179376714.jpg";
+        if (profile_path == null) {
+            this.profile_path = "https://thumbs.dreamstime.com/b/profil-vectoriel-avatar-par-d%C3%A9faut-utilisateur-179376714.jpg";
         } else {
-            this.profil_path = 'https://image.tmdb.org/t/p/w185' + profil_path;
+            this.profile_path = 'https://image.tmdb.org/t/p/w185' + profile_path;
         }
-
+        console.log("profil_path", this.profile_path)
         this.date = date.substring(0, 10);
         this.pseudo = pseudo;
 
