@@ -6,7 +6,7 @@ class MinimalMovie {
 
     constructor(original_title: string, poster_path: string) {
         this.original_title = original_title;
-        this.poster_path = 'https://image.tmdb.org/t/p/w780' + poster_path;
+        this.poster_path = 'https://image.tmdb.org/t/p/w185' + poster_path;
 
     }
 

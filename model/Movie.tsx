@@ -18,13 +18,13 @@ class Movie {
         this.id = id;
         this.original_title = original_title;
         this.poster_path = 'https://image.tmdb.org/t/p/w780' + poster_path;
-        this.poster_path_min = 'https://image.tmdb.org/t/p/w500' + poster_path;
+        this.poster_path_min = 'https://image.tmdb.org/t/p/w185' + poster_path;
         this.runtime = runtime;
         this.release_date = release_date.substring(0, 4);
         this.genres = genres;
         this.overview = overview;
         this.vote_average = vote_average;
-        this.backdrop_path = 'https://image.tmdb.org/t/p/w780' + backdrop_path;
+        this.backdrop_path = 'https://image.tmdb.org/t/p/original' + backdrop_path;
     }
 
 

@@ -187,13 +187,13 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                 <SafeAreaView style={styles.background1}>
 
 
-                    <ImageBackground blurRadius={8}
+                    <ImageBackground blurRadius={29}
                                      style={{
                                          width: "150%",
                                          height: "150%",
                                          justifyContent: "center",
                                          alignItems: "center",
-                                         opacity: 0.48,
+                                         opacity: 0.55,
                                          position: 'absolute',
                                          left: "-50%",
                                          top: "-50%"
@@ -287,7 +287,8 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                         <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>Nouvelle collection dans</Text>
                         <Image source={require('../assets/images/timer_icon.png')} style={{
                             height: 30,
-                            resizeMode: 'contain'
+                            resizeMode: 'contain',
+                            top: -5
                         }}></Image>
                         <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>{`${hours.toString().padStart(2, '0')}:`}</Text>
                         <Text style={{color: "#FFF", fontSize: 16, fontWeight: "500"}}>{`${minutes.toString().padStart(2, '0')}:`}</Text>
@@ -411,7 +412,7 @@ export function Stars(props: StarsProps) {
     return (
         <View>
             <Image source={imageSource} style={{
-                width: 110,
+                width: props.size,
                 height: 40,
                 resizeMode: 'contain'
             }}/>
