@@ -421,7 +421,7 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
                 <TouchableOpacity onPress={() => navigation.goBack()} style={{zIndex: 100}}>
                     <Ionicons name="ios-arrow-back" size={30} color="white" style={styles.backButton}/>
                 </TouchableOpacity>
-                <ScrollView style={styles.list} showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={1}
+                <ScrollView style={styles.list} showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={32}
                 >
                     <View style={styles.section1}>
                         <Text style={styles.title} numberOfLines={2}>{item.original_title}</Text>
