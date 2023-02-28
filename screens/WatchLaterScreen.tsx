@@ -14,6 +14,8 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
 
     const [search, setSearch] = useState('');
 
+    const [borderwidth, setBorderWidth] = useState(0);
+
     const [filteredDataSource, setFilteredDataSource] = useState<Movie[]>([]);
 
     const [masterDataSource] = useState([]);
@@ -66,15 +68,18 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
         searchSection: {
             height: 40,
             width: 400,
-            backgroundColor: "grey",
+            backgroundColor: "#323232",
             borderRadius: 20,
             marginVertical: 10,
-            alignSelf: "center"
+            alignSelf: "center",
+            borderWidth: borderwidth,
+            borderColor: "rgba(255,255,255,0.22)"
         },
         searchBar: {
             width: '100%',
             height: 40,
-            marginHorizontal: 20
+            marginHorizontal: 20,
+            color: "white"
         },
         titlePage: {
             height: 50,
@@ -108,6 +113,14 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
         loadWatchLater();
     }, [dispatch]);
 
+    const ToggleSearchBar = () => {
+        if (borderwidth === 0)
+            setBorderWidth(2)
+        else
+            setBorderWidth(0)
+
+    };
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -122,6 +135,10 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
             <View style={styles.searchSection}>
                 <TextInput style={styles.searchBar} onChangeText={(text) => searchFilterFunction(text)}
                            value={search}
+                           placeholder="Rechercher ici..."
+                           placeholderTextColor={"white"}
+                           onFocus={ToggleSearchBar}
+                           onBlur={ToggleSearchBar}
                 ></TextInput>
             </View>
             <FlatList
