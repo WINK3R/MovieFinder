@@ -31,4 +31,6 @@ Lucas Delanier : lucas.delanier@etu.uca.fr </br>
 Louison Parant : louison.parant@etu.uca.fr 
 
 ## GIT
+
+Le dépot du projet est disponible a l'adresse suivante : https://codefirst.iut.uca.fr/git/lucas.delanier/MovieFinder
                                                         
