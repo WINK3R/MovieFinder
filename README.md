@@ -27,7 +27,7 @@ L'API utilisé est TMDB API : https://developers.themoviedb.org/3
 
 En cas de problème lors de l'utilisation de l'application, veuillez contacter les contacts suivant:
 
-Lucas Delanier : lucas.delanier@etu.uca.fr 
+Lucas Delanier : lucas.delanier@etu.uca.fr </br>
 Louison Parant : louison.parant@etu.uca.fr 
 
 ## GIT
