@@ -20,6 +20,8 @@ La page Info permet de visualiser toutes les informations d'un film ( Titre, not
 
 Un theme sombre et claire sont disponibles en fonction du theme du téléphone.
 
+L'API utilisé est TMDB API : https://developers.themoviedb.org/3
+
 
 ## CONTACT
 
