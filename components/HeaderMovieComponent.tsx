@@ -2,6 +2,7 @@ import {StyleSheet, Text, View} from "react-native";
 import * as React from "react";
 import Stars from "./StarsComponent";
 import Movie from "../model/Movie";
+import {formatTime} from "../model/formatTime";
 
 type headerMovieProps = {
     movie: Movie
@@ -9,12 +10,7 @@ type headerMovieProps = {
 }
 
 export function HeaderMovie(props: headerMovieProps) {
-    
-    function formatTime(time: number) {
-        const hours = Math.floor(time / 60);
-        const minutes = time % 60;
-        return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
-    }
+
 
     const styles = StyleSheet.create({
         circle: {

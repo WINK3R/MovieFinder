@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TouchableOpacity, ScrollView, View, Text, StyleSheet, Image, SafeAreaView, FlatList} from 'react-native';
+import {TouchableOpacity, ScrollView, View, Text, StyleSheet, Image, SafeAreaView, FlatList, Animated} from 'react-native';
 import {RootStackScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import Movie from "../model/Movie";
@@ -12,6 +12,7 @@ import MinimalMovie from "../model/MinimalMovie";
 import Review from "../model/review";
 import Stars from "../components/StarsComponent";
 import minimalMovie from "../model/MinimalMovie";
+import {formatTime} from "../model/formatTime";
 
 export default function InfoScreen({navigation, route}: RootStackScreenProps<'Info'>) {
     // @ts-ignore
@@ -33,20 +34,14 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
 
     const [scaleBackground, setScaleBackground] = useState(1);
 
-    function formatTime(time: number) {
-        const hours = Math.floor(time / 60);
-        const minutes = time % 60;
-        return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
-    }
 
     const handleScroll = (event: any) => {
         const {y} = event.nativeEvent.contentOffset;
-        let padTop = y / -5;
+        let padTop = y / -20;
         if (padTop <= 0)
-
-            setPaddingTopBackground(y / -5);
-        setOpacityBackground(0.5 - y / 500);
-        let scale = 1 - y / -1000
+            setPaddingTopBackground(padTop);
+        setOpacityBackground(0.5 - y / 600);
+        let scale = 1 - y / -2000
         if (scale >= 1)
             setScaleBackground(scale);
     };
@@ -421,7 +416,7 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
                 <TouchableOpacity onPress={() => navigation.goBack()} style={{zIndex: 100}}>
                     <Ionicons name="ios-arrow-back" size={30} color="white" style={styles.backButton}/>
                 </TouchableOpacity>
-                <ScrollView style={styles.list} showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={32}
+                <ScrollView style={styles.list} showsVerticalScrollIndicator={false} onScroll={handleScroll} scrollEventThrottle={4}
                 >
                     <View style={styles.section1}>
                         <Text style={styles.title} numberOfLines={2}>{item.original_title}</Text>
