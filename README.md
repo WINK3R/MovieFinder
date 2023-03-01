@@ -1,10 +1,10 @@
-#Movie Finder
+# Movie Finder
 
-##README
-
-
-##CONTACT
+## README
 
 
-##GIT
+## CONTACT
+
+
+## GIT
                                                         
