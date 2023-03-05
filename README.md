@@ -10,7 +10,9 @@
 
                                             
 </pre>                                                   
-
+<p align="center">
+  <img src="https://codefirst.iut.uca.fr/git/lucas.delanier/MovieFinder/raw/branch/master/Documentation/exemplebackground.png"  />
+</p>
 
 ## README
 
