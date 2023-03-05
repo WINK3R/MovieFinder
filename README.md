@@ -24,7 +24,7 @@ La page "Info" permet de visualiser toutes les informations d'un film (titre, no
 
 Deux thèmes différents sont disponibles : sombre et clair. Ils sont choisis en fonction du thème selectionné sur le téléphone de l'utilisateur.
 
-L'API utilisée est : The Movie DataBase (TMDB) API : https://developers.themoviedb.org/3
+L'API utilisée est : The Movie DataBase (TMDB) API : https://developers.themoviedb.org/3</br>
 Pour afficher nos "Coup de coeur" nous avons développé notre propre API disponible ici : https://codefirst.iut.uca.fr/git/lucas.delanier/moviefinder_api
 
 
