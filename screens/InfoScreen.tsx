@@ -365,7 +365,6 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
     }
     const getReview = async () => {
         const ReviewResponse = (await fetch(config.base_url + "movie/" + item.id + "/reviews?api_key=" + config.api_key + "&language=us-EN&page=1"));
-
         const ReviewJson = await ReviewResponse.json();
         // @ts-ignore
         let ReviewList = ReviewJson.results.slice(0, 5).map((elt) => {

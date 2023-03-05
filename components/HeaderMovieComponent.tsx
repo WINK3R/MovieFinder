@@ -19,7 +19,7 @@ export function HeaderMovie(props: headerMovieProps) {
             borderRadius: 100 / 2,
             marginTop: 4,
             backgroundColor: "lightgray",
-            marginHorizontal: 8
+            marginHorizontal: 8,
         },
     });
 

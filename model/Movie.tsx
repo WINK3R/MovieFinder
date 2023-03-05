@@ -13,6 +13,8 @@ class Movie {
 
     public backdrop_path: string
 
+    public full_date;
+
 
     constructor(id: number, original_title: string, poster_path: string, runtime: number, vote_average: number, release_date: string, genres: string[], overview: string, backdrop_path: string) {
         this.id = id;
@@ -21,6 +23,7 @@ class Movie {
         this.poster_path_min = 'https://image.tmdb.org/t/p/w185' + poster_path;
         this.runtime = runtime;
         this.release_date = release_date.substring(0, 4);
+        this.full_date = release_date;
         this.genres = genres;
         this.overview = overview;
         this.vote_average = vote_average;

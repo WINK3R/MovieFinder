@@ -17,7 +17,6 @@ class Review {
         } else {
             this.profile_path = 'https://image.tmdb.org/t/p/w185' + profile_path;
         }
-        console.log("profil_path", this.profile_path)
         this.date = date.substring(0, 10);
         this.pseudo = pseudo;
 

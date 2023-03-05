@@ -11,6 +11,9 @@ import CardsSwipe from 'react-native-cards-swipe';
 import AnimatedLottieView from "lottie-react-native";
 import {Timer, Timer2} from "../components/TimerComponent";
 import {HeaderMovie} from "../components/HeaderMovieComponent";
+import config from "../constants/config.js";
+import * as https from "https";
+import {NewCard, SuggestedCard} from "../components/cards";
 
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
@@ -21,6 +24,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [displayIndex, setdisplayIndex] = useState(0);
+    const [suggestedMovies, setSuggestedMovies] = useState<number[]>([]);
 
     var swiper: any = null;
 
@@ -151,12 +155,27 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
             setSeconds(s);
         });
-        setTimeout(() => interval, 10000);
+        getSuggested();
     }, []);
+
+
+    const getSuggested = async () => {
+        const suggestedResponse = (await fetch("https://codefirst.iut.uca.fr/containers/lucasdelanier-containermoviefinder/api/Suggested"));
+        const suggestedJson = await suggestedResponse.json();
+        //console.log("trailer", trailerJson)
+        // @ts-ignore
+        const suggestedMovies = suggestedJson.map((element) => {
+            return element;
+
+        })
+        console.log("suggested", suggestedMovies)
+        setSuggestedMovies(suggestedMovies);
+    }
 
     function addWatchLater(props: Movie) {
         dispatch(addMovieToWatchLater(props));
         dispatch(removeMovieTrending(props));
+        console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
         if (displayIndex == trendingMovies.length - 1) {
             setdisplayIndex(0);
             swiper.swipeLeft();
@@ -204,6 +223,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
                     ></ImageBackground>
                     <HeaderMovie movie={trendingMovies[displayIndex]}></HeaderMovie>
 
+
                     <CardsSwipe
                         ref={(rf) => {
                             swiper = rf
@@ -229,12 +249,21 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
                         renderCard={(card) =>
                             (
-                                <Image
-                                    style={styles.filmCard}
-                                    source={{
-                                        uri: card?.poster_path,
-                                    }}
-                                />)
+                                <>
+                                    <View style={{position: "absolute", zIndex: 20, top: 80, right: 20, alignItems: "flex-end"}}>
+                                        {suggestedMovies.includes(trendingMovies[displayIndex].id) && (<SuggestedCard></SuggestedCard>)}
+                                        {(new Date().setDate(new Date().getDate() - 14) < new Date(trendingMovies[displayIndex].full_date).getTime()) && (<NewCard></NewCard>)}
+                                    </View>
+
+                                    <Image
+                                        style={styles.filmCard}
+                                        source={{
+                                            uri: card?.poster_path,
+                                        }}
+                                    />
+
+                                </>
+                            )
                         }
                     />
 
