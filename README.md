@@ -45,7 +45,11 @@ Une fois la commande executée, il vous suffit de scanner le QR à partir de l'a
 
 ![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+## :gift: OverView
 
+<p align="center">
+  <img src="https://codefirst.iut.uca.fr/git/lucas.delanier/MovieFinder/raw/branch/master/Documentation/exemplebackground.png"  />
+</p>
 
 ## :wrench: SUPPORT
 En cas de problème lors de l'utilisation de l'application, vous pouvez nous contacer aux adresses suivantes :
