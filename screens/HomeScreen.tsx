@@ -249,20 +249,22 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
                         renderCard={(card) =>
                             (
-                                <>
-                                    <View style={{position: "absolute", zIndex: 20, top: 80, right: 20, alignItems: "flex-end"}}>
-                                        {suggestedMovies.includes(trendingMovies[displayIndex].id) && (<SuggestedCard></SuggestedCard>)}
-                                        {(new Date().setDate(new Date().getDate() - 14) < new Date(trendingMovies[displayIndex].full_date).getTime()) && (<NewCard></NewCard>)}
-                                    </View>
+                                card != undefined && (
+                                    <>
+                                        <View style={{position: "absolute", zIndex: 20, top: 80, right: 20, alignItems: "flex-end"}}>
+                                            {suggestedMovies.includes(card.id) && (<SuggestedCard></SuggestedCard>)}
+                                            {(new Date().setDate(new Date().getDate() - 14) < new Date(card.full_date).getTime()) && (<NewCard></NewCard>)}
+                                        </View>
 
-                                    <Image
-                                        style={styles.filmCard}
-                                        source={{
-                                            uri: card?.poster_path,
-                                        }}
-                                    />
+                                        <Image
+                                            style={styles.filmCard}
+                                            source={{
+                                                uri: card?.poster_path,
+                                            }}
+                                        />
 
-                                </>
+                                    </>
+                                )
                             )
                         }
                     />
