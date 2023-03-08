@@ -1,17 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Movie from "../model/Movie";
+import {useDispatch, useSelector} from "react-redux";
 
 export const getFavouriteList = async () => {
     try {
         const value = await AsyncStorage.getItem('favourite');
         if (value === null) {
-            return null;
+            return [];
         }
         const favouriteList: Movie[] = await JSON.parse(value!)
         return favouriteList;
     } catch (error) {
         console.log(error)
-        return null;
+        return [];
     }
 };
 
@@ -27,13 +28,13 @@ export const getWatchLaterList = async () => {
     try {
         const value = await AsyncStorage.getItem('watchLater');
         if (value === null) {
-            return null;
+            return [];
         }
         const watchLaterList: Movie[] = await JSON.parse(value!)
         return watchLaterList;
     } catch (error) {
         console.log(error)
-        return null;
+        return [];
     }
 };
 

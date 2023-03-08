@@ -1,46 +1,55 @@
-import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_FAVOURITE, FETCH_TRENDING_MOVIE, FETCH_WATCHLATER, POP_FIRST_TRENDING} from '../constants';
+import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_FAVOURITE, FETCH_TRENDING_MOVIE, FETCH_WATCHLATER, LOAD_FAVOURITE, LOAD_WATCHLATER, POP_FIRST_TRENDING} from '../constants';
 import config from "../../constants/config";
 import Movie from "../../model/Movie";
+import {getFavouriteList, getWatchLaterList} from "../../storage/storageFavourite";
 
-/*export const getWatchLaterMovies = (WatchLaterList: Movie[]) => {
+
+
+export const setWatchLater = (TrendingMovieList: null | Movie[]) => {
     return {
-        type: FETCH_WATCHLATER,
-        payload: WatchLaterList,
+        type: LOAD_WATCHLATER,
+        payload: TrendingMovieList,
     };
 }
 
-export const getFavouriteMovies = (FavouriteList: Movie[]) => {
+export const setFavourite = (FavouriteList: null | Movie[]) => {
     return {
-        type: FETCH_FAVOURITE,
-        payload: FavouriteList,
-    };
-}*/
-
-export const fetchWatchLater = (WatchLaterList: Movie[]) => {
-    return {
-        type: FETCH_WATCHLATER,
-        payload: WatchLaterList,
-    };
-}
-
-export const fetchFavourite = (FavouriteList: Movie[]) => {
-    return {
-        type: FETCH_FAVOURITE,
+        type: LOAD_FAVOURITE,
         payload: FavouriteList,
     };
 }
+
 
 export const getWatchLater = () => {
-    const MovieList: Movie[] = [];
-    fetchWatchLater(MovieList);
+    // @ts-ignore
+    return async dispatch => {
+        try {
+            let MovieList = await getWatchLaterList();
+            dispatch(setWatchLater(MovieList));
+
+
+        } catch (error) {
+            console.log('Error', error);
+        }
+    }
 }
+
+
 
 export const getFavourite = () => {
-    const MovieList: Movie[] = [];
-    fetchFavourite(MovieList);
-}
+    // @ts-ignore
+    return async dispatch => {
+        try {
+            let MovieList = await getFavouriteList();
+            dispatch(setFavourite(MovieList));
 
-export const setinfoMovie = (TrendingMovieList: Movie[]) => {
+
+        } catch (error) {
+            console.log('Error', error);
+        }
+    }
+}
+export const setinfoMovie = (TrendingMovieList: null | Movie[]) => {
     return {
         type: FETCH_TRENDING_MOVIE,
         payload: TrendingMovieList,

@@ -129,7 +129,7 @@ export default function FavoriteScreen({navigation}: RootTabScreenProps<'Favorit
         <SafeAreaView style={styles.container}>
             <View style={styles.titlePage}>
                 <FontAwesomeIcon icon={faHeart} style={styles.icon} size={40} color="white"/>
-                <Text style={styles.h1}>Watch Later</Text>
+                <Text style={styles.h1}>Favourite</Text>
             </View>
             <Image
                 source={require('../assets/images/delimiter.png')} style={styles.delimiter}

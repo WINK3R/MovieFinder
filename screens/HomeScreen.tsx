@@ -14,10 +14,16 @@ import {HeaderMovie} from "../components/HeaderMovieComponent";
 import config from "../constants/config.js";
 import * as https from "https";
 import {NewCard, SuggestedCard} from "../components/cards";
+import {setFavouriteList,setWatchLaterList} from "../storage/storageFavourite"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
+    // @ts-ignore
+    const watchLaterMovies = useSelector(state => state.appReducer.watchLaterMovies);
+    // @ts-ignore
+    const favouriteMovies = useSelector(state => state.appReducer.favouriteMovies);
     const dispatch = useDispatch();
 
     const [hours, setHours] = useState(0);
@@ -132,6 +138,14 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
 
     useEffect(() => {
+        /*const clearAllStorage = async () => {
+            try {
+                await AsyncStorage.clear()
+            } catch (e) {
+                console.log("An error occurred", e);
+            }
+        }
+        clearAllStorage()*/
         const interval = setInterval(() => {
             const today = moment();
 
@@ -173,22 +187,38 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     }
 
     function addWatchLater(props: Movie) {
-        dispatch(addMovieToWatchLater(props));
-        dispatch(removeMovieTrending(props));
-        console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
-        if (displayIndex == trendingMovies.length - 1) {
-            setdisplayIndex(0);
-            swiper.swipeLeft();
+
+        if(watchLaterMovies.filter((movie : Movie) => movie.original_title === props.original_title).length > 0){
+            return null
         }
+        else{
+            setWatchLaterList(watchLaterMovies);
+            dispatch(addMovieToWatchLater(props));
+            dispatch(removeMovieTrending(props));
+            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
+            if (displayIndex == trendingMovies.length - 1) {
+                setdisplayIndex(0);
+                swiper.swipeLeft();
+            }
+        }
+
     }
 
     function addFavourite(props: Movie) {
-        dispatch(addMovieToFavourite(props));
-        dispatch(removeMovieTrending(props));
-        if (displayIndex == trendingMovies.length - 1) {
-            setdisplayIndex(0);
-            swiper.swipeLeft();
+        if(favouriteMovies.filter((movie : Movie) => movie.original_title === props.original_title).length > 0){
+            return null
         }
+        else{
+            setFavouriteList(favouriteMovies);
+            dispatch(addMovieToFavourite(props));
+            dispatch(removeMovieTrending(props));
+            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
+            if (displayIndex == trendingMovies.length - 1) {
+                setdisplayIndex(0);
+                swiper.swipeLeft();
+            }
+        }
+
     }
 
 

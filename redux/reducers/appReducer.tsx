@@ -1,5 +1,6 @@
-import {POP_FIRST_TRENDING, FETCH_TRENDING_MOVIE, FETCH_TRENDING_ID, ADD_WATCHLATER, FETCH_WATCHLATER, ADD_FAVOURITE, FETCH_FAVOURITE} from "../constants";
+import {POP_FIRST_TRENDING, FETCH_TRENDING_MOVIE, FETCH_TRENDING_ID, ADD_WATCHLATER, FETCH_WATCHLATER, ADD_FAVOURITE, FETCH_FAVOURITE, LOAD_WATCHLATER, LOAD_FAVOURITE} from "../constants";
 import Movie from "../../model/Movie";
+import {getFavouriteList, getWatchLaterList} from "../../storage/storageFavourite";
 
 const initialState = {
     trendingIDs: [],
@@ -10,6 +11,12 @@ const initialState = {
 // @ts-ignore
 export default appReducer = (state = initialState, action) => {
     switch (action.type) {
+        case LOAD_WATCHLATER:
+            // @ts-ignore
+            return {...state, watchLaterMovies: action.payload};
+        case LOAD_FAVOURITE:
+            // @ts-ignore
+            return {...state, favouriteMovies: action.payload};
         case FETCH_TRENDING_ID:
             // @ts-ignore
             return {...state, trendingIDs: action.payload};

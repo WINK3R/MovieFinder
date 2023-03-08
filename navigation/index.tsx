@@ -24,13 +24,15 @@ import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types
 import LinkingConfiguration from './LinkingConfiguration';
 import {useCallback, useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {getTrendingID} from "../redux/actions/actionGetTrendingID";
+import {getTrendingID, loadWatchLater} from "../redux/actions/actionGetTrendingID";
 import * as SplashScreen from 'expo-splash-screen';
+import {getWatchLaterList} from "../storage/storageFavourite";
 
 export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName }) {
     const [appIsReady, setAppIsReady] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
+
         async function prepare() {
             try {
                 const loadTrendingID = async () => {
@@ -39,6 +41,10 @@ export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName
                 };
                 //console.log("test1:", trendingMovies);
                 loadTrendingID();
+
+                const list = dispatch(loadWatchLater());
+                console.log("test1:", list);
+                loadWatchLater(list);
             } catch (e) {
                 //console.warn(e);
             } finally {
@@ -46,6 +52,7 @@ export default function Navigation({colorScheme}: { colorScheme: ColorSchemeName
                 setAppIsReady(true);
             }
         }
+
 
         prepare();
     }, []);
