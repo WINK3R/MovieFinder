@@ -1,7 +1,7 @@
-import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_FAVOURITE, FETCH_TRENDING_MOVIE, FETCH_WATCHLATER, LOAD_FAVOURITE, LOAD_WATCHLATER, POP_FIRST_TRENDING} from '../constants';
-import config from "../../constants/config";
-import Movie from "../../model/Movie";
-import {getFavouriteList, getWatchLaterList} from "../../storage/storageFavourite";
+import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_TRENDING_MOVIE, LOAD_FAVOURITE, LOAD_WATCHLATER, POP_FIRST_TRENDING} from '../constants'
+import config from "../../constants/config"
+import Movie from "../../model/Movie"
+import {getFavouriteList, getWatchLaterList} from "../../storage/storage"
 
 
 
@@ -9,14 +9,14 @@ export const setWatchLater = (TrendingMovieList: null | Movie[]) => {
     return {
         type: LOAD_WATCHLATER,
         payload: TrendingMovieList,
-    };
+    }
 }
 
 export const setFavourite = (FavouriteList: null | Movie[]) => {
     return {
         type: LOAD_FAVOURITE,
         payload: FavouriteList,
-    };
+    }
 }
 
 

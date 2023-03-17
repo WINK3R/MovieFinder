@@ -3,7 +3,7 @@ import {TouchableOpacity, View, Text, StyleSheet, Image, ImageBackground, SafeAr
 import {RootStackScreenProps} from "../types";
 import {useEffect, useRef, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {addMovieToWatchLater, addMovieToFavourite, removeMovieTrending,} from "../redux/actions/actionGetTrendingID";
+import {addMovieToWatchLater, addMovieToFavourite, removeMovieTrending,} from "../redux/actions/actions";
 import {useDispatch, useSelector} from 'react-redux';
 import Movie from "../model/Movie";
 import moment from 'moment';
@@ -12,27 +12,27 @@ import AnimatedLottieView from "lottie-react-native";
 import {Timer, Timer2} from "../components/TimerComponent";
 import {HeaderMovie} from "../components/HeaderMovieComponent";
 import {NewCard, SuggestedCard} from "../components/cards";
-import {setFavouriteList,setWatchLaterList} from "../storage/storageFavourite"
+import {setFavouriteList,setWatchLaterList} from "../storage/storage"
 
 
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
-    const trendingMovies = useSelector(state => state.appReducer.trendingMovies);
+    const trendingMovies = useSelector(state => state.appReducer.trendingMovies)
     // @ts-ignore
-    const watchLaterMovies = useSelector(state => state.appReducer.watchLaterMovies);
+    const watchLaterMovies = useSelector(state => state.appReducer.watchLaterMovies)
     // @ts-ignore
-    const favouriteMovies = useSelector(state => state.appReducer.favouriteMovies);
-    const dispatch = useDispatch();
+    const favouriteMovies = useSelector(state => state.appReducer.favouriteMovies)
+    const dispatch = useDispatch()
 
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
+    const [hours, setHours] = useState(0)
+    const [minutes, setMinutes] = useState(0)
+    const [seconds, setSeconds] = useState(0)
     const [displayIndex, setdisplayIndex] = useState(0);
-    const [suggestedMovies, setSuggestedMovies] = useState<number[]>([]);
+    const [suggestedMovies, setSuggestedMovies] = useState<number[]>([])
 
-    var swiper: any = null;
+    var swiper: any = null
 
-    const insets = useSafeAreaInsets();
+    const insets = useSafeAreaInsets()
 
     const styles = StyleSheet.create({
         background1: {
@@ -132,71 +132,63 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
         }
 
 
-    });
+    })
 
 
     useEffect(() => {
-        /*const clearAllStorage = async () => {
-            try {
-                await AsyncStorage.clear()
-            } catch (e) {
-                console.log("An error occurred", e);
-            }
-        }
-        clearAllStorage()*/
         const interval = setInterval(() => {
-            const today = moment();
+            const today = moment()
 
-            today.set({hour: 0, minute: 0, second: 0, millisecond: 0});
+            today.set({hour: 0, minute: 0, second: 0, millisecond: 0})
 
-            const tonight = today.add(1, 'days');
+            const tonight = today.add(1, 'days')
 
-            const timestamp = tonight.valueOf();
-            const now = new Date();
-            const difference = timestamp - now.getTime();
+            const timestamp = tonight.valueOf()
+            const now = new Date()
+            const difference = timestamp - now.getTime()
             const h = Math.floor(
                 (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
+            )
 
-            setHours(h);
+            setHours(h)
 
-            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            setMinutes(m);
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+            setMinutes(m)
 
-            const s = Math.floor((difference % (1000 * 60)) / 1000);
+            const s = Math.floor((difference % (1000 * 60)) / 1000)
 
-            setSeconds(s);
+            setSeconds(s)
         });
-        getSuggested();
+        getSuggested()
     }, []);
 
 
     const getSuggested = async () => {
-        const suggestedResponse = (await fetch("https://codefirst.iut.uca.fr/containers/lucasdelanier-containermoviefinder/api/Suggested"));
-        const suggestedJson = await suggestedResponse.json();
+        const suggestedResponse = (await fetch("https://codefirst.iut.uca.fr/containers/lucasdelanier-containermoviefinder/api/Suggested"))
+        const suggestedJson = await suggestedResponse.json()
         //console.log("trailer", trailerJson)
         // @ts-ignore
         const suggestedMovies = suggestedJson.map((element) => {
-            return element;
+            return element
 
         })
         console.log("suggested", suggestedMovies)
-        setSuggestedMovies(suggestedMovies);
+        setSuggestedMovies(suggestedMovies)
     }
 
     function addWatchLater(props: Movie) {
-        const newwatchLaterMovies = [props, ...watchLaterMovies]
+        const newWatchLaterMovies = [props, ...watchLaterMovies]
         if(watchLaterMovies.filter((movie : Movie) => movie.original_title === props.original_title).length > 0){
             return null
         }
         else{
-            dispatch(addMovieToWatchLater(props));
-            dispatch(removeMovieTrending(props));
-            setWatchLaterList(newwatchLaterMovies);
-            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
+            dispatch(addMovieToWatchLater(props))
+            dispatch(removeMovieTrending(props))
+            setWatchLaterList(newWatchLaterMovies)
+            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime()
             if (displayIndex == trendingMovies.length - 1) {
-                setdisplayIndex(0);
-                swiper.swipeLeft();
+                setdisplayIndex(0)
+                swiper.swipeLeft()
             }
         }
 
@@ -208,26 +200,24 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             return null
         }
         else{
-
-            dispatch(addMovieToFavourite(props));
-            dispatch(removeMovieTrending(props));
+            dispatch(addMovieToFavourite(props))
+            dispatch(removeMovieTrending(props))
             console.log(favouriteMovies)
-            setFavouriteList(newFavouriteMovies);
-            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
+            setFavouriteList(newFavouriteMovies)
+            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime()
             if (displayIndex == trendingMovies.length - 1) {
-                setdisplayIndex(0);
-                swiper.swipeLeft();
+                setdisplayIndex(0)
+                swiper.swipeLeft()
             }
         }
-
     }
 
 
     function popFirstTrending(props: Movie) {
-        dispatch(removeMovieTrending(props));
+        dispatch(removeMovieTrending(props))
         if (displayIndex == trendingMovies.length - 1) {
-            setdisplayIndex(0);
-            swiper.swipeLeft();
+            setdisplayIndex(0)
+            swiper.swipeLeft()
         }
     }
 

@@ -1,6 +1,5 @@
 import {POP_FIRST_TRENDING, FETCH_TRENDING_MOVIE, FETCH_TRENDING_ID, ADD_WATCHLATER, FETCH_WATCHLATER, ADD_FAVOURITE, FETCH_FAVOURITE, LOAD_WATCHLATER, LOAD_FAVOURITE} from "../constants";
 import Movie from "../../model/Movie";
-import {getFavouriteList, getWatchLaterList} from "../../storage/storageFavourite";
 
 const initialState = {
     trendingIDs: [],

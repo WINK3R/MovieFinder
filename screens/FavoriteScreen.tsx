@@ -6,7 +6,7 @@ import {RootTabScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
-import {getFavourite} from "../redux/actions/actionGetTrendingID";
+import {getFavourite} from "../redux/actions/actions";
 import Movie from "../model/Movie";
 
 import {MovieListComponent} from "../components/MovieListComponent";
