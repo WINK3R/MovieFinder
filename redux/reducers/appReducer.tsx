@@ -8,7 +8,7 @@ const initialState = {
     favouriteMovies: [] as Movie[],
 }
 // @ts-ignore
-export default appReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
     switch (action.type) {
         case LOAD_WATCHLATER:
             // @ts-ignore

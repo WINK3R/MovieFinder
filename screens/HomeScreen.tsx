@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, Image, ImageBackground, SafeAreaView} from 'react-native';
-import {RootStackScreenProps} from "../types";
 import {useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {addMovieToWatchLater, addMovieToFavourite, removeMovieTrending,} from "../redux/actions/actions";

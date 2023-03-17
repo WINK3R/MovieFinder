@@ -1,22 +1,19 @@
 class Movie {
-    public id: number
-    public original_title: string
 
-    public poster_path: string
+    public poster_path_min : string
 
-    public poster_path_min: string
-    public runtime: number
-    public vote_average: number
-    public release_date: string
-    public overview: string
-    public genres: string[]
-
-    public backdrop_path: string
-
-    public full_date;
-
-
-    constructor(id: number, original_title: string, poster_path: string, runtime: number, vote_average: number, release_date: string, genres: string[], overview: string, backdrop_path: string) {
+    public full_date : string
+    constructor(
+        public id: number,
+        public original_title: string,
+        public poster_path: string,
+        public runtime: number,
+        public vote_average: number,
+        public release_date: string,
+        public genres: string[],
+        public overview: string,
+        public backdrop_path: string
+    ) {
         this.id = id;
         this.original_title = original_title;
         this.poster_path = 'https://image.tmdb.org/t/p/w780' + poster_path;
