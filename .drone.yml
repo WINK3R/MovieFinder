@@ -6,7 +6,6 @@ steps:
   - name: sonar-analyses
     image: hub.codefirst.iut.uca.fr/camille.petitalot/drone-sonarplugin-reactnative:latest
     commands:
-      - cd src
       - npm install
       - sonar-scanner -Dsonar.projectKey=MovieFinder -Dsonar.sources=. -Dsonar.host.url=$${PLUGIN_SONAR_HOST} 
         -Dsonar.login=$${PLUGIN_SONAR_TOKEN}
