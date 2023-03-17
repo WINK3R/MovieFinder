@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {TouchableOpacity, ScrollView, View, Text, StyleSheet, Image, SafeAreaView, FlatList, Animated} from 'react-native';
+import {TouchableOpacity, ScrollView, View, Text, StyleSheet, Image, SafeAreaView, FlatList} from 'react-native';
 import {RootStackScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import Movie from "../model/Movie";
@@ -11,7 +11,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import MinimalMovie from "../model/MinimalMovie";
 import Review from "../model/review";
 import Stars from "../components/StarsComponent";
-import minimalMovie from "../model/MinimalMovie";
 import {formatTime} from "../model/formatTime";
 
 export default function InfoScreen({navigation, route}: RootStackScreenProps<'Info'>) {
@@ -80,7 +79,7 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
     }
 
     type SimilarMovieProps = {
-        movie: minimalMovie;
+        movie: MinimalMovie;
     };
 
     function SimilarMovie(props: SimilarMovieProps) {
@@ -341,7 +340,6 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
         const creditResponse = (await fetch(config.base_url + "movie/" + item.id + "/credits?api_key=" + config.api_key + "&language=fr-FR"));
 
         const creditJson = await creditResponse.json();
-        //console.log("credittttttt", creditJson)
         // @ts-ignore
         let creditList = creditJson.cast.map((elt) => {
             if (elt["popularity"])
@@ -349,7 +347,6 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
         });
         creditList = creditList.slice(0, 5).sort((a: [fullname: string, profile_path: string, popularity: number], b: [fullname: string, profil_path: string, popularity: number]) => b[2] - a[2]);
 
-        //console.log("credit", creditList);
         setCredit(creditList);
     }
     const getSimilarMovies = async () => {
@@ -360,7 +357,6 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
         const SimilarMoviesList = SimilarMoviesJson.results.slice(0, 10).map((elt) => {
             return new MinimalMovie(elt["original_title"], elt["poster_path"])
         });
-        //console.log("similar", SimilarMoviesList);
         setSimilarMovies(SimilarMoviesList);
     }
     const getReview = async () => {
@@ -375,8 +371,6 @@ export default function InfoScreen({navigation, route}: RootStackScreenProps<'In
         ReviewList = ReviewList.filter((review: Review, index: number, array: Review[]) => {
             return array.findIndex((item: Review) => item.pseudo === review.pseudo) === index;
         });
-
-        //console.log("review", ReviewJson.results);
         setReview(ReviewList);
     }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, Image, ImageBackground, SafeAreaView} from 'react-native';
 import {RootStackScreenProps} from "../types";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {addMovieToWatchLater, addMovieToFavourite, removeMovieTrending,} from "../redux/actions/actions";
 import {useDispatch, useSelector} from 'react-redux';
@@ -15,7 +15,7 @@ import {NewCard, SuggestedCard} from "../components/cards";
 import {setFavouriteList,setWatchLaterList} from "../storage/storage"
 
 
-export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
+export default function HomeScreen({}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.trendingMovies)
     // @ts-ignore
@@ -30,7 +30,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     const [displayIndex, setdisplayIndex] = useState(0);
     const [suggestedMovies, setSuggestedMovies] = useState<number[]>([])
 
-    var swiper: any = null
+    let swiper: any = null
 
     const insets = useSafeAreaInsets()
 
@@ -136,7 +136,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
 
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        setInterval(() => {
             const today = moment()
 
             today.set({hour: 0, minute: 0, second: 0, millisecond: 0})
@@ -185,7 +185,6 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
             dispatch(addMovieToWatchLater(props))
             dispatch(removeMovieTrending(props))
             setWatchLaterList(newWatchLaterMovies)
-            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime()
             if (displayIndex == trendingMovies.length - 1) {
                 setdisplayIndex(0)
                 swiper.swipeLeft()
@@ -202,9 +201,7 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
         else{
             dispatch(addMovieToFavourite(props))
             dispatch(removeMovieTrending(props))
-            console.log(favouriteMovies)
             setFavouriteList(newFavouriteMovies)
-            console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime()
             if (displayIndex == trendingMovies.length - 1) {
                 setdisplayIndex(0)
                 swiper.swipeLeft()
