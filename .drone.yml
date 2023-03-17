@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: sonar-analyses
+    image: hub.codefirst.iut.uca.fr/camille.petitalot/drone-sonarplugin-reactnative:latest
+    commands:
+      - cd src
+      - npm install
+      - sonar-scanner -Dsonar.projectKey=MovieFinder -Dsonar.sources=. -Dsonar.host.url=$${PLUGIN_SONAR_HOST} 
+        -Dsonar.login=$${PLUGIN_SONAR_TOKEN}
+    secrets: [ SONAR_TOKEN ]
+    settings:
+      sonar_host: https://codefirst.iut.uca.fr/sonar/
+      sonar_token:
+        from_secret: SONAR_TOKEN
