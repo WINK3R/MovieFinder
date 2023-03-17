@@ -3,6 +3,7 @@ import {Image, StyleSheet, Text, View} from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import Stars from "./StarsComponent";
 import * as React from "react";
+import {formatTime} from "../model/formatTime";
 
 type MovieListProps = {
     movie: Movie
@@ -10,12 +11,6 @@ type MovieListProps = {
 }
 
 export function MovieListComponent(props: MovieListProps) {
-    function formatTime(time: number) {
-        const hours = Math.floor(time / 60);
-        const minutes = time % 60;
-        return `${hours}h ${minutes < 10 ? `0${minutes}` : minutes}m`;
-    }
-
     const styles = StyleSheet.create({
         filmCard: {
             width: 70,

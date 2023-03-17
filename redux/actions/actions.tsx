@@ -63,7 +63,7 @@ export const getTrendingID = () => {
             const IDPromise = await fetch(config.base_url + "trending/movie/day?api_key=" + config.api_key);
             const IDListJson = await IDPromise.json();
             // @ts-ignore
-            const idList: String[] = IDListJson.results.map(elt => elt["id"]);
+            const idList: string[] = IDListJson.results.map(elt => elt["id"]);
             const MovieList: Movie[] = [];
             Promise.all(idList.map(async elt => {
                 try {
@@ -75,9 +75,9 @@ export const getTrendingID = () => {
                 // @ts-ignore
                 Promise.all(responses.map(result => result.json()))
                     .then(function (elements) {
-                        elements.map(elt => {
+                        elements.forEach(elt => {
                             const infoJson = elt;
-                            const genreRow: String[] = [];
+                            const genreRow: string[] = [];
                             // @ts-ignore
                             elt["genres"].map(genre => {
                                 genreRow.push(genre.name);

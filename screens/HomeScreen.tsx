@@ -15,7 +15,7 @@ import {NewCard, SuggestedCard} from "../components/cards";
 import {setFavouriteList,setWatchLaterList} from "../storage/storage"
 
 
-export default function HomeScreen({}: RootStackScreenProps<'Home'>) {
+export default function HomeScreen() {
     // @ts-ignore
     const trendingMovies = useSelector(state => state.appReducer.trendingMovies)
     // @ts-ignore

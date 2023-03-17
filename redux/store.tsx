@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import appReducer from "./reducers/appReducer";
-import { getDefaultMiddleware } from '@reduxjs/toolkit';
 const reducer = {
     appReducer: appReducer,
 }

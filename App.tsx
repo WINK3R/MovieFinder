@@ -5,7 +5,6 @@ import useColorScheme from './hooks/useColorScheme'
 import Navigation from './navigation'
 import store from "./redux/store"
 import {Provider} from "react-redux"
-import {useState} from "react"
 
 export default function App() {
     const isLoadingComplete = useCachedResources()
