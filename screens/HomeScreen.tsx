@@ -11,11 +11,9 @@ import CardsSwipe from 'react-native-cards-swipe';
 import AnimatedLottieView from "lottie-react-native";
 import {Timer, Timer2} from "../components/TimerComponent";
 import {HeaderMovie} from "../components/HeaderMovieComponent";
-import config from "../constants/config.js";
-import * as https from "https";
 import {NewCard, SuggestedCard} from "../components/cards";
 import {setFavouriteList,setWatchLaterList} from "../storage/storageFavourite"
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     // @ts-ignore
@@ -187,14 +185,14 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     }
 
     function addWatchLater(props: Movie) {
-
+        const newwatchLaterMovies = [props, ...watchLaterMovies]
         if(watchLaterMovies.filter((movie : Movie) => movie.original_title === props.original_title).length > 0){
             return null
         }
         else{
-            setWatchLaterList(watchLaterMovies);
             dispatch(addMovieToWatchLater(props));
             dispatch(removeMovieTrending(props));
+            setWatchLaterList(newwatchLaterMovies);
             console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
             if (displayIndex == trendingMovies.length - 1) {
                 setdisplayIndex(0);
@@ -205,13 +203,16 @@ export default function HomeScreen({navigation}: RootStackScreenProps<'Home'>) {
     }
 
     function addFavourite(props: Movie) {
+        const newFavouriteMovies = [props, ...favouriteMovies]
         if(favouriteMovies.filter((movie : Movie) => movie.original_title === props.original_title).length > 0){
             return null
         }
         else{
-            setFavouriteList(favouriteMovies);
+
             dispatch(addMovieToFavourite(props));
             dispatch(removeMovieTrending(props));
+            console.log(favouriteMovies)
+            setFavouriteList(newFavouriteMovies);
             console.log("movie: ", props.id, props.full_date, new Date(props.full_date).getTime()), new Date(trendingMovies[displayIndex].full_date).getTime();
             if (displayIndex == trendingMovies.length - 1) {
                 setdisplayIndex(0);
