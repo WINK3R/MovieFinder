@@ -14,3 +14,5 @@ steps:
       sonar_host: https://codefirst.iut.uca.fr/sonar/
       sonar_token:
         from_secret: SONAR_TOKEN
+  - name: Test and coverage
+        run: npm jest --coverage
