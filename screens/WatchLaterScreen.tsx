@@ -1,7 +1,5 @@
-import {FlatList, StyleSheet, SafeAreaView, Text, View, Image, TextInput, TouchableHighlight} from 'react-native';
+import {FlatList, StyleSheet, View, TextInput, TouchableHighlight} from 'react-native';
 import * as React from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {faClock} from "@fortawesome/free-solid-svg-icons";
 import {RootTabScreenProps} from "../types";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,6 +7,7 @@ import {useEffect, useState} from 'react';
 import {getWatchLater} from "../redux/actions/actions";
 import Movie from "../model/Movie";
 import {MovieListComponent} from "../components/MovieListComponent";
+import MovieFinderScreenList from "./MovieFinderScreenList";
 
 export default function WatchLaterScreen({navigation}: RootTabScreenProps<'WatchLater'>) {
 
@@ -122,15 +121,10 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
     };
 
 
+
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.titlePage}>
-                <FontAwesomeIcon icon={faClock} style={styles.icon} size={40} color="white"/>
-                <Text style={styles.h1}>Watch Later</Text>
-            </View>
-            <Image
-                source={require('../assets/images/delimiter.png')} style={styles.delimiter}
-            />
+        // @ts-ignore
+        <MovieFinderScreenList page={"Watch Later"}>
 
             <View style={styles.searchSection}>
                 <TextInput style={styles.searchBar} onChangeText={(text) => searchFilterFunction(text)}
@@ -147,6 +141,6 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
                 // @ts-ignore
                 renderItem={({item}) => <TouchableHighlight onPress={() => navigation.navigate("Info", {"item": item})}><MovieListComponent movie={item}></MovieListComponent></TouchableHighlight>}
             />
-        </SafeAreaView>
+        </MovieFinderScreenList>
     );
 }
