@@ -15,4 +15,4 @@ steps:
       sonar_token:
         from_secret: SONAR_TOKEN
   - name: Test and coverage
-      run: npm jest --coverage
+    run: npm jest --coverage
