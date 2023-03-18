@@ -6,14 +6,18 @@
 
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
-![WebStorm](https://img.shields.io/badge/webstorm-143?style=for-the-badge&logo=webstorm&logoColor=white&color=black)
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-C21325.svg?style=for-the-badge&logo=Jest&logoColor=white)
-![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-C21325.svg?style=for-the-badge&logo=Jest&logoColor=white)</br>
+[![Maintainability Rating](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=sqale_rating&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+[![Reliability Rating](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=reliability_rating&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+[![Security Rating](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=security_rating&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+[![Bugs](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=bugs&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+[![Code Smells](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=code_smells&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+[![Technical Debt](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=sqale_index&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+[![Vulnerabilities](https://codefirst.iut.uca.fr/sonar/api/project_badges/measure?project=MovieFinder&metric=vulnerabilities&token=59656240a4130edba83931f3226a84d76ad9028f)](https://codefirst.iut.uca.fr/sonar/dashboard?id=MovieFinder)
+
 
 **MovieFinder** est une application mobile qui permet de découvrir des films. Elle propose chaque jour une liste contenant les 20 films les plus tendances du jour. Une fois la liste vidée, vous êtes invités à attendre la fin du décompte, qui est fixé à minuit, afin d'obtenir une nouvelle liste de films journaliers.
 
