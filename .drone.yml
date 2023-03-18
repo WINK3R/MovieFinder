@@ -17,4 +17,4 @@ steps:
   - name: Test and coverage
     image: hub.codefirst.iut.uca.fr/camille.petitalot/drone-sonarplugin-reactnative:latest
     commands:
-      - npm jest --coverage
+      - npm jest
