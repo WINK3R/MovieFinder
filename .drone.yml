@@ -17,7 +17,7 @@ steps:
   - name: install dependencies
     image: node:16-alpine
     commands:
-      - npm install
+      - npm install --save-dev jest ts-jest @types/jest
 
   - name: run tests
     image: node:16-alpine
