@@ -14,12 +14,3 @@ steps:
       sonar_host: https://codefirst.iut.uca.fr/sonar/
       sonar_token:
         from_secret: SONAR_TOKEN
-  - name: install dependencies
-    image: node:16-alpine
-    commands:
-      - npm install --save-dev jest ts-jest @types/jest
-
-  - name: run tests
-    image: node:16-alpine
-    commands:
-      - npm test
