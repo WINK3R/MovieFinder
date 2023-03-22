@@ -48,7 +48,7 @@ export default function MovieFinderScreenList(props : Props){
         <SafeAreaView style={styles.container}>
             <View style={styles.titlePage}>
                 <FontAwesomeIcon icon={props.page=="Favorite"?faHeart:faClock} style={styles.icon} size={40} color="white"/>
-                <Text style={styles.h1}>Watch Later</Text>
+                {props.page=="Favorite"?<Text style={styles.h1}>Favourite</Text>:<Text style={styles.h1}>Watch Later</Text>}
             </View>
             <Image source={require('../assets/images/delimiter.png')} style={styles.delimiter}/>
             {props.children}

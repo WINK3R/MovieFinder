@@ -5,9 +5,9 @@ export const getFavouriteList = async () => {
     try {
         const value = await AsyncStorage.getItem('favourite');
         if (value === null) {
-            return null
+            return []
         }
-        const favouriteList: Movie[] = await JSON.parse(value!)
+        const favouriteList: Movie[] = await JSON.parse(value)
         return favouriteList
     } catch (error) {
         console.log(error)
@@ -27,9 +27,9 @@ export const getWatchLaterList = async () => {
     try {
         const value = await AsyncStorage.getItem('watchLater')
         if (value === null) {
-            return null
+            return []
         }
-        const watchLaterList: Movie[] = await JSON.parse(value!)
+        const watchLaterList: Movie[] = await JSON.parse(value)
         return watchLaterList
     } catch (error) {
         console.log(error)
@@ -49,9 +49,9 @@ export const getMovieList = async () => {
     try {
         const value = await AsyncStorage.getItem('movie')
         if (value === null) {
-            return null
+            return []
         }
-        const movieList: Movie[] = await JSON.parse(value!)
+        const movieList: Movie[] = await JSON.parse(value)
         return movieList
     } catch (error) {
         console.log(error)
