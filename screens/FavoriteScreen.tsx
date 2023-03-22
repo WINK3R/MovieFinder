@@ -9,7 +9,6 @@ import Movie from "../model/Movie";
 import {MovieListComponent} from "../components/MovieListComponent";
 import MovieFinderScreenList from "./MovieFinderScreenList";
 
-
 export default function FavoriteScreen({navigation}: RootTabScreenProps<'Favorite'>) {
 
     const [search, setSearch] = useState('');
@@ -93,7 +92,7 @@ export default function FavoriteScreen({navigation}: RootTabScreenProps<'Favorit
     useEffect(() => {
         const loadFavourite = async () => {
             // @ts-ignore
-            await dispatch(getFavourite());
+            dispatch(getFavourite());
         };
         loadFavourite();
     }, [dispatch]);

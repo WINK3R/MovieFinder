@@ -107,7 +107,7 @@ export default function WatchLaterScreen({navigation}: RootTabScreenProps<'Watch
     useEffect(() => {
         const loadWatchLater = async () => {
             // @ts-ignore
-            await dispatch(getWatchLater());
+            dispatch(getWatchLater());
         };
         loadWatchLater();
     }, [dispatch]);
