@@ -1,7 +1,7 @@
-import Movie from "../../model/Movie";
-import {describe, expect} from '@jest/globals';
-import {addMovieToFavourite, addMovieToWatchLater, removeMovieTrending, setFavourite, setinfoMovie, setWatchLater} from "../../redux/actions/actions";
-import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_TRENDING_MOVIE, LOAD_FAVOURITE, LOAD_WATCHLATER, POP_FIRST_TRENDING} from "../../redux/constants";
+import Movie from "../../model/Movie"
+import {describe, expect} from '@jest/globals'
+import {addMovieToFavourite, addMovieToWatchLater, removeMovieTrending, setFavourite, setinfoMovie, setWatchLater} from "../../redux/actions/actions"
+import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_TRENDING_MOVIE, LOAD_FAVOURITE, LOAD_WATCHLATER, POP_FIRST_TRENDING} from "../../redux/constants"
 
 describe('test actions add WatchLater', () => {
 
