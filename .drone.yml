@@ -7,8 +7,11 @@ steps:
     image: hub.codefirst.iut.uca.fr/camille.petitalot/drone-sonarplugin-reactnative:latest
     commands:
       - npm install
+      - npm run test
+      - ls ./components/__tests__/
       - sonar-scanner -Dsonar.projectKey=MovieFinder -Dsonar.sources=. -Dsonar.host.url=$${PLUGIN_SONAR_HOST} 
-        -Dsonar.login=$${PLUGIN_SONAR_TOKEN}
+        -Dsonar.login=$${PLUGIN_SONAR_TOKEN} -Dsonar.javascript.lcov.reportPaths=./components/__tests__/lcov.info 
+        -Dsonar.exclusions=**/lcov-report/**
     secrets: [ SONAR_TOKEN ]
     settings:
       sonar_host: https://codefirst.iut.uca.fr/sonar/
