@@ -83,6 +83,7 @@ export const getTrendingID = () => {
                                 genreRow.push(genre.name);
                             });
 
+                            console.log(new Movie(infoJson["id"], infoJson["title"], infoJson["poster_path"], infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"], genreRow, infoJson["overview"], infoJson["backdrop_path"]))
                             // @ts-ignore
                             MovieList.push(new Movie(infoJson["id"], infoJson["title"], infoJson["poster_path"], infoJson["runtime"], infoJson["vote_average"], infoJson["release_date"], genreRow, infoJson["overview"], infoJson["backdrop_path"]))
                         })
