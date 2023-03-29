@@ -12,3 +12,21 @@ describe('return formated time', () => {
         expect(formatTime(203)).toBe("3h 23m");
     });
 });
+
+/*
+    "verbose": true,
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "testMatch": [
+      "**.test.js"
+    ],
+    "testEnvironment": "node",
+    "testEnvironmentOptions": {
+      "browsers": [
+        "chrome",
+        "firefox",
+        "safari"
+      ]
+    }
+*/
