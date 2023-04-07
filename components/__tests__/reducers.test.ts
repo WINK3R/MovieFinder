@@ -1,5 +1,5 @@
 import Movie from "../../model/Movie"
-import {describe, expect, test} from '@jest/globals'
+import {describe, expect} from '@jest/globals'
 import appReducer from "../../redux/reducers/appReducer"
 import {ADD_FAVOURITE, ADD_WATCHLATER, FETCH_TRENDING_MOVIE, LOAD_FAVOURITE, LOAD_WATCHLATER, POP_FIRST_TRENDING} from "../../redux/constants"
 
