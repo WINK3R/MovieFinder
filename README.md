@@ -54,6 +54,9 @@ Une fois la commande executée, il vous suffit de scanner le QR à partir de l'a
   <img src="https://codefirst.iut.uca.fr/git/lucas.delanier/MovieFinder/raw/branch/master/Documentation/exemplebackground.png"  />
 </p>
 
+Les sketchs de l'application sont disponibles sur le figma suivant:
+[Figma MovieFinder](https://www.figma.com/file/dbTIviWlglo4boYu1hTJ1e/MovieFinder?node-id=0%3A1&t=ls9V1qC8pOlnEeY1-1)
+
 ## :wrench: SUPPORT
 En cas de problème lors de l'utilisation de l'application, vous pouvez nous contacer aux adresses suivantes :
 
