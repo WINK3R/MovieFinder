@@ -170,7 +170,3 @@ describe('test POP_FIRST_TRENDING', () => {
         })
     })
 })
-/*
-        case POP_FIRST_TRENDING:
-            return {...state, trendingMovies: [...state.trendingMovies.filter((item: Movie) => item !== action.payload)]};
-*/
