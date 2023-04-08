@@ -46,6 +46,12 @@ Une fois la commande executée, il vous suffit de scanner le QR à partir de l'a
 
 **/!\ Veuillez faire attention à bien etre connecté sur le même réseau (ordinateaur et téléphone).**
 
+Si vous rencontrez des problèmes liés aux "RNSVGSvgViewAndroid", utilisez cette commande :
+
+```bash
+npx expo install react-native-svg
+```
+
 ![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 ## :gift: OverView
