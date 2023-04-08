@@ -3,7 +3,7 @@ import Movie from "../../model/Movie";
 
 const initialState = {
     trendingIDs: [],
-    trendingMovies: [],
+    trendingMovies: [] as Movie[],
     watchLaterMovies: [] as Movie[],
     favouriteMovies: [] as Movie[],
 }
