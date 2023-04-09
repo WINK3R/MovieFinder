@@ -35,6 +35,8 @@ L'API utilisée est : The Movie DataBase (TMDB) API : https://developers.themovi
 Pour afficher nos "Coup de coeur" nous avons développé notre propre API que nous mettrons à jour en fonction de nos propres gouts. disponible ici : https://codefirst.iut.uca.fr/git/lucas.delanier/moviefinder_api
 ![](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+Plus d'informations sont disponibles dans le dossier Documentation comme un schéma d'architecture globale expliquant l'appel a l'API ainsi que du localstorage.
+
 ## :dizzy: Getting Started
 
 Une fois le dépot cloné, vous pouvez lancer le code sur votre téléphone Android et IOS grace a l'outil [Expo](https://docs.expo.dev/get-started/installation/).
