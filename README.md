@@ -1,7 +1,7 @@
  
   
 <p align="center">
-  <img src="https://codefirst.iut.uca.fr/git/lucas.delanier/MovieFinder/raw/branch/master/Documentation/banner_image.png  "  />
+  <img src="/Documentation/banner_image.png  "  />
 </p>
 
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -59,7 +59,7 @@ npx expo install react-native-svg
 ## :gift: OverView
 
 <p align="center">
-  <img src="https://codefirst.iut.uca.fr/git/lucas.delanier/MovieFinder/raw/branch/master/Documentation/exemplebackground.png"  />
+  <img src="/Documentation/exemplebackground.png"  />
 </p>
 
 Les sketchs de l'application sont disponibles sur le figma suivant:
